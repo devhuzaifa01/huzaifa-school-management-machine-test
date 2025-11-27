@@ -1,0 +1,6 @@
+﻿namespace School.Api.OpenApi
+{
+    public class school_api
+    {
+    }
+}
