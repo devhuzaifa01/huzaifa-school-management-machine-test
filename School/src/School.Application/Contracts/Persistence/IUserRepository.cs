@@ -1,6 +1,10 @@
-﻿namespace School.Application.Contracts.Persistence
+﻿using School.Domain.Entities;
+
+namespace School.Application.Contracts.Persistence
 {
     public interface IUserRepository
     {
+        Task<User?> GetByEmailAsync(string email);
+        Task<User> AddAsync(User user);
     }
 }

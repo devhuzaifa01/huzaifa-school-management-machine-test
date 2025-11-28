@@ -1,6 +1,15 @@
-﻿namespace School.Api.Configuration
+﻿using Serilog;
+
+namespace School.Api.Configuration
 {
-    public class SerilogSetup
+    public static class SerilogSetup
     {
+        public static void AddSerilogConfiguration(this IHostBuilder hostBuilder)
+        {
+            hostBuilder.UseSerilog((context, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(context.Configuration);
+            });
+        }
     }
 }
