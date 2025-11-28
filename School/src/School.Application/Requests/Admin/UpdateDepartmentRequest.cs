@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace School.Application.Requests.Admin
 {
-    public class CreateDepartmentRequest
+    public class UpdateDepartmentRequest
     {
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
@@ -14,3 +14,4 @@ namespace School.Application.Requests.Admin
         public int? HeadOfDepartmentId { get; set; }
     }
 }
+

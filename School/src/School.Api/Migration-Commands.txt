@@ -1,2 +1,3 @@
 ﻿add-migration InitialMigrationWithUsersTable
 add-migration CreateDatabaseEntities
+add-migration AddIsDeletedBitInBaseEntity

@@ -18,6 +18,11 @@ namespace School.Infrastructure.Persistence.Repositories
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<User> AddAsync(User user)
         {
             _dbContext.Users.Add(user);
