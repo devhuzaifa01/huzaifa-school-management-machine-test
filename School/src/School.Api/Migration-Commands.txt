@@ -1,1 +1,2 @@
 ﻿add-migration InitialMigrationWithUsersTable
+add-migration CreateDatabaseEntities

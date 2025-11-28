@@ -1,6 +1,32 @@
-﻿namespace School.Domain.Entities
+﻿using School.Domain.Common;
+using System.ComponentModel.DataAnnotations;
+
+namespace School.Domain.Entities
 {
-    public class Submission
+    public class Submission : BaseEntity
     {
+        [Required(ErrorMessage = "AssignmentId is required")]
+        public int AssignmentId { get; set; }
+
+        [Required(ErrorMessage = "StudentId is required")]
+        public int StudentId { get; set; }
+
+        [Required(ErrorMessage = "SubmittedDate is required")]
+        public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
+
+        [MaxLength(500, ErrorMessage = "FileUrl cannot exceed 500 characters")]
+        public string? FileUrl { get; set; }
+
+        [Range(0, 100, ErrorMessage = "Grade must be between 0 and 100")]
+        public decimal? Grade { get; set; }
+
+        public int? GradedByTeacherId { get; set; }
+
+        [MaxLength(500, ErrorMessage = "Remarks cannot exceed 500 characters")]
+        public string? Remarks { get; set; }
+
+        public Assignment? Assignment { get; set; }
+        public User? Student { get; set; }
+        public User? GradedByTeacher { get; set; }
     }
 }
