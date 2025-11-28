@@ -1,6 +1,12 @@
-﻿namespace School.Application.Contracts.Persistence
+﻿using School.Domain.Entities;
+
+namespace School.Application.Contracts.Persistence
 {
     public interface ICourseRepository
     {
+        Task<Course?> GetByCodeAndDepartmentIdAsync(string code, int departmentId);
+        Task<Course?> GetByIdAsync(int id);
+        Task<Course> AddAsync(Course course);
+        Task<Course> UpdateAsync(Course course);
     }
 }

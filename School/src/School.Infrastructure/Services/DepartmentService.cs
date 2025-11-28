@@ -109,18 +109,18 @@ namespace School.Infrastructure.Services
             }
         }
 
-        public async Task<DepartmentDto> UpdateAsync(int id, UpdateDepartmentRequest request)
+        public async Task<DepartmentDto> UpdateAsync(UpdateDepartmentRequest request)
         {
             try
             {
-                var department = await _departmentRepository.GetByIdAsync(id);
+                var department = await _departmentRepository.GetByIdAsync(request.Id);
                 if (department is null || department.IsDeleted == true)
                 {
                     throw new InvalidOperationException("Department not found");
                 }
 
                 var existingDepartment = await _departmentRepository.GetByNameAsync(request.Name);
-                if (existingDepartment is not null && existingDepartment.Id != id)
+                if (existingDepartment is not null && existingDepartment.Id != request.Id)
                 {
                     throw new InvalidOperationException("Department name must be unique");
                 }
@@ -163,7 +163,7 @@ namespace School.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An exception occurred while updating department with id {id}. {ex.Message}", ex);
+                _logger.LogError($"An exception occurred while updating department with id {request.Id}. {ex.Message}", ex);
                 throw;
             }
         }

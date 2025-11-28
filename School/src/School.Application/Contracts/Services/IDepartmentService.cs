@@ -7,7 +7,7 @@ namespace School.Application.Contracts.Services
     {
         Task<DepartmentDto> CreateAsync(CreateDepartmentRequest request);
         Task<DepartmentDto> GetByIdAsync(int id);
-        Task<DepartmentDto> UpdateAsync(int id, UpdateDepartmentRequest request);
+        Task<DepartmentDto> UpdateAsync(UpdateDepartmentRequest request);
         Task DeleteAsync(int id);
     }
 }

@@ -31,10 +31,10 @@ namespace School.Api.Features.Admin
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateDepartmentRequest request)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateDepartmentRequest request)
         {
-            var result = await _departmentService.UpdateAsync(id, request);
+            var result = await _departmentService.UpdateAsync(request);
             return Ok(result);
         }
 

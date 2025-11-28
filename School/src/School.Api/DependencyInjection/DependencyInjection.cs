@@ -14,10 +14,12 @@ namespace School.Api.DependencyInjection
             services.AddScoped<JwtTokenService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             // Register Repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             return services;
         }
