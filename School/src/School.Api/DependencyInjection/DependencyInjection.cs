@@ -15,6 +15,7 @@ namespace School.Api.DependencyInjection
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IUserService, UserService>();
 
             // Register Repositories
             services.AddScoped<IUserRepository, UserRepository>();

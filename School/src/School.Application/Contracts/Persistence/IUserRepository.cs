@@ -7,5 +7,6 @@ namespace School.Application.Contracts.Persistence
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByIdAsync(int id);
         Task<User> AddAsync(User user);
+        Task<User> UpdateAsync(User user);
     }
 }

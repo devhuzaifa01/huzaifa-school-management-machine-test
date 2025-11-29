@@ -1,6 +1,13 @@
-﻿namespace School.Application.Contracts.Services
+﻿using School.Application.Dtos;
+using School.Application.Requests.Admin;
+
+namespace School.Application.Contracts.Services
 {
     public interface IUserService
     {
+        Task<UserDto> CreateAsync(CreateUserRequest request);
+        Task<UserDto> GetByIdAsync(int id);
+        Task<UserDto> UpdateAsync(UpdateUserRequest request);
+        Task DeleteAsync(int id);
     }
 }
