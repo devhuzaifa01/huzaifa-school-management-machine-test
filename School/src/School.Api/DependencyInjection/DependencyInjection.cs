@@ -16,11 +16,13 @@ namespace School.Api.DependencyInjection
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IClassService, ClassService>();
 
             // Register Repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IClassRepository, ClassRepository>();
 
             return services;
         }

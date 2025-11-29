@@ -28,6 +28,14 @@ namespace School.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id && (c.IsDeleted == null || c.IsDeleted == false));
         }
 
+        public async Task<List<Course>> GetAllAsync()
+        {
+            return await _dbContext.Courses
+                .Include(c => c.Department)
+                .Where(c => c.IsDeleted == null || c.IsDeleted == false)
+                .ToListAsync();
+        }
+
         public async Task<Course> AddAsync(Course course)
         {
             _dbContext.Courses.Add(course);

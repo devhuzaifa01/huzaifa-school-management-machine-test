@@ -106,6 +106,34 @@ namespace School.Infrastructure.Services
             }
         }
 
+        public async Task<List<CourseDto>> GetAllAsync()
+        {
+            try
+            {
+                var courses = await _courseRepository.GetAllAsync();
+
+                List<CourseDto> courseDtos = courses.Select(course => new CourseDto
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Code = course.Code,
+                    Description = course.Description,
+                    DepartmentId = course.DepartmentId,
+                    DepartmentName = course.Department?.Name,
+                    Credits = course.Credits,
+                    CreatedDate = course.CreatedDate,
+                    UpdatedDate = course.UpdatedDate
+                }).ToList();
+
+                return courseDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching all courses. {ex.Message}", ex);
+                throw;
+            }
+        }
+
         public async Task<CourseDto> UpdateAsync(UpdateCourseRequest request)
         {
             try

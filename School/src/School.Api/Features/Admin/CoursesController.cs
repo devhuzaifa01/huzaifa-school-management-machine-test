@@ -24,13 +24,6 @@ namespace School.Api.Features.Admin
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var result = await _courseService.GetByIdAsync(id);
-            return Ok(result);
-        }
-
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateCourseRequest request)
         {
