@@ -12,10 +12,12 @@ namespace School.Api.Features.Teacher
     public class ClassesController : ControllerBase
     {
         private readonly IClassService _classService;
+        private readonly IEnrollmentService _enrollmentService;
 
-        public ClassesController(IClassService classService)
+        public ClassesController(IClassService classService, IEnrollmentService enrollmentService)
         {
             _classService = classService;
+            _enrollmentService = enrollmentService;
         }
 
         [HttpPost]
@@ -89,6 +91,32 @@ namespace School.Api.Features.Teacher
         {
             await _classService.ActivateAsync(id);
             return Ok();
+        }
+
+        [HttpPost("{classId}/enroll")]
+        public async Task<IActionResult> EnrollStudent(int classId, [FromBody] EnrollStudentRequest request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int teacherId))
+            {
+                return Unauthorized("Invalid user information");
+            }
+
+            var result = await _enrollmentService.EnrollStudentAsync(classId, request, teacherId);
+            return Ok(result);
+        }
+
+        [HttpGet("{classId}/enrollments")]
+        public async Task<IActionResult> GetEnrollments(int classId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int teacherId))
+            {
+                return Unauthorized("Invalid user information");
+            }
+
+            var result = await _enrollmentService.GetEnrollmentsByClassIdAsync(classId, teacherId);
+            return Ok(result);
         }
     }
 }

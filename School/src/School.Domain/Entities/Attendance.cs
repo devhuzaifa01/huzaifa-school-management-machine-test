@@ -16,7 +16,7 @@ namespace School.Domain.Entities
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Status is required")]
-        public AttendanceStatus Status { get; set; }
+        public string Status { get; set; }
 
         [Required(ErrorMessage = "MarkedByTeacherId is required")]
         public int MarkedByTeacherId { get; set; }
