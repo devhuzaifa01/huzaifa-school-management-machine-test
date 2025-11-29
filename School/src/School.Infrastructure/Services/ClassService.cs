@@ -285,5 +285,75 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<ClassDto> GetByIdForAdminAsync(int id)
+        {
+            try
+            {
+                var classEntity = await _classRepository.GetByIdAsync(id);
+                if (classEntity is null || classEntity.IsDeleted == true)
+                {
+                    throw new InvalidOperationException("Class not found");
+                }
+
+                ClassDto classDto = new()
+                {
+                    Id = classEntity.Id,
+                    Name = classEntity.Name,
+                    CourseId = classEntity.CourseId,
+                    CourseName = classEntity.Course?.Name,
+                    CourseCode = classEntity.Course?.Code,
+                    TeacherId = classEntity.TeacherId,
+                    TeacherName = classEntity.Teacher?.Name,
+                    TeacherEmail = classEntity.Teacher?.Email,
+                    Semester = classEntity.Semester,
+                    StartDate = classEntity.StartDate,
+                    EndDate = classEntity.EndDate,
+                    IsActive = classEntity.IsActive,
+                    CreatedDate = classEntity.CreatedDate,
+                    UpdatedDate = classEntity.UpdatedDate
+                };
+
+                return classDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching class with id {id} for admin. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<List<ClassDto>> GetAllForAdminAsync()
+        {
+            try
+            {
+                var classes = await _classRepository.GetAllAsync();
+
+                List<ClassDto> classDtos = classes.Select(classEntity => new ClassDto
+                {
+                    Id = classEntity.Id,
+                    Name = classEntity.Name,
+                    CourseId = classEntity.CourseId,
+                    CourseName = classEntity.Course?.Name,
+                    CourseCode = classEntity.Course?.Code,
+                    TeacherId = classEntity.TeacherId,
+                    TeacherName = classEntity.Teacher?.Name,
+                    TeacherEmail = classEntity.Teacher?.Email,
+                    Semester = classEntity.Semester,
+                    StartDate = classEntity.StartDate,
+                    EndDate = classEntity.EndDate,
+                    IsActive = classEntity.IsActive,
+                    CreatedDate = classEntity.CreatedDate,
+                    UpdatedDate = classEntity.UpdatedDate
+                }).ToList();
+
+                return classDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching all classes for admin. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

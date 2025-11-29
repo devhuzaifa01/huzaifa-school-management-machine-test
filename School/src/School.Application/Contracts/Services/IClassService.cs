@@ -11,5 +11,7 @@ namespace School.Application.Contracts.Services
         Task<ClassDto> UpdateAsync(UpdateClassRequest request, int teacherId);
         Task DeactivateAsync(int id);
         Task ActivateAsync(int id);
+        Task<ClassDto> GetByIdForAdminAsync(int id);
+        Task<List<ClassDto>> GetAllForAdminAsync();
     }
 }

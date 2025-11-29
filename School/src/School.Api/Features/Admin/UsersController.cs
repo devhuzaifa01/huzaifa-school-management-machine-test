@@ -24,10 +24,24 @@ namespace School.Api.Features.Admin
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _userService.GetAllAsync();
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _userService.GetByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("role/{role}")]
+        public async Task<IActionResult> GetByRole(string role)
+        {
+            var result = await _userService.GetByRoleAsync(role);
             return Ok(result);
         }
 

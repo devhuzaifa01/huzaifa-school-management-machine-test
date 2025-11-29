@@ -6,6 +6,7 @@ namespace School.Application.Contracts.Persistence
     {
         Task<Department?> GetByNameAsync(string name);
         Task<Department?> GetByIdAsync(int id);
+        Task<List<Department>> GetAllAsync();
         Task<Department> AddAsync(Department department);
         Task<Department> UpdateAsync(Department department);
     }

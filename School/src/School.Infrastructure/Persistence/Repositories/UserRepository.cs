@@ -26,6 +26,16 @@ namespace School.Infrastructure.Persistence.Repositories
                 && (u.IsDeleted == null || u.IsDeleted == false));
         }
 
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await _dbContext.Users.Where(u => u.IsDeleted == null || u.IsDeleted == false).ToListAsync();
+        }
+
+        public async Task<List<User>> GetByRoleAsync(string role)
+        {
+            return await _dbContext.Users.Where(u => u.Role.ToLower() == role.ToLower() && (u.IsDeleted == null || u.IsDeleted == false)).ToListAsync();
+        }
+
         public async Task<User> AddAsync(User user)
         {
             _dbContext.Users.Add(user);

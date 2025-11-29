@@ -7,6 +7,8 @@ namespace School.Application.Contracts.Services
     {
         Task<UserDto> CreateAsync(CreateUserRequest request);
         Task<UserDto> GetByIdAsync(int id);
+        Task<List<UserDto>> GetAllAsync();
+        Task<List<UserDto>> GetByRoleAsync(string role);
         Task<UserDto> UpdateAsync(UpdateUserRequest request);
         Task DeleteAsync(int id);
     }

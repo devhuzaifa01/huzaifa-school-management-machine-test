@@ -188,5 +188,31 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<List<DepartmentDto>> GetAllAsync()
+        {
+            try
+            {
+                var departments = await _departmentRepository.GetAllAsync();
+
+                List<DepartmentDto> departmentDtos = departments.Select(department => new DepartmentDto
+                {
+                    Id = department.Id,
+                    Name = department.Name,
+                    Description = department.Description,
+                    HeadOfDepartmentId = department.HeadOfDepartmentId,
+                    HeadOfDepartmentName = department.HeadOfDepartment?.Name,
+                    CreatedDate = department.CreatedDate,
+                    UpdatedDate = department.UpdatedDate
+                }).ToList();
+
+                return departmentDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching all departments. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

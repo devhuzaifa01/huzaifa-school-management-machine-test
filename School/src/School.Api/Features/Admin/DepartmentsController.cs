@@ -24,6 +24,13 @@ namespace School.Api.Features.Admin
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _departmentService.GetAllAsync();
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

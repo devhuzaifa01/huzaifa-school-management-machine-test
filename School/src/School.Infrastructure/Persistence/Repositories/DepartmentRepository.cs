@@ -25,6 +25,14 @@ namespace School.Infrastructure.Persistence.Repositories
                 .Include(d => d.HeadOfDepartment)
                 .FirstOrDefaultAsync(d => d.Id == id && (d.IsDeleted == null || d.IsDeleted == false));
         }
+
+        public async Task<List<Department>> GetAllAsync()
+        {
+            return await _dbContext.Departments
+                .Include(d => d.HeadOfDepartment)
+                .Where(d => d.IsDeleted == null || d.IsDeleted == false)
+                .ToListAsync();
+        }
          
         public async Task<Department> AddAsync(Department department)
         {

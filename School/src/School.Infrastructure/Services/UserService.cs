@@ -149,5 +149,55 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<List<UserDto>> GetAllAsync()
+        {
+            try
+            {
+                var users = await _userRepository.GetAllAsync();
+
+                List<UserDto> userDtos = users.Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Role,
+                    CreatedDate = user.CreatedDate,
+                    UpdatedDate = user.UpdatedDate
+                }).ToList();
+
+                return userDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching all users. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<List<UserDto>> GetByRoleAsync(string role)
+        {
+            try
+            {
+                var users = await _userRepository.GetByRoleAsync(role);
+
+                List<UserDto> userDtos = users.Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Role,
+                    CreatedDate = user.CreatedDate,
+                    UpdatedDate = user.UpdatedDate
+                }).ToList();
+
+                return userDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching users by role {role}. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }
