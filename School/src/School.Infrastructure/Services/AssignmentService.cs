@@ -278,5 +278,133 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<SubmissionDto> GradeSubmissionAsync(int submissionId, GradeSubmissionRequest request, int teacherId)
+        {
+            try
+            {
+                var submission = await _submissionRepository.GetByIdWithAssignmentAndClassAsync(submissionId);
+                if (submission is null)
+                {
+                    throw new InvalidOperationException("Submission not found");
+                }
+
+                if (submission.Assignment is null)
+                {
+                    throw new InvalidOperationException("Assignment not found for this submission");
+                }
+
+                if (submission.Assignment.Class is null)
+                {
+                    throw new InvalidOperationException("Class not found for this assignment");
+                }
+
+                if (submission.Assignment.Class.TeacherId != teacherId)
+                {
+                    throw new InvalidOperationException("You can only grade submissions for assignments in your classes");
+                }
+
+                if (submission.GradedByTeacherId.HasValue)
+                {
+                    throw new InvalidOperationException("This submission has already been graded");
+                }
+
+                var teacher = await _userRepository.GetByIdAsync(teacherId);
+                if (teacher is null)
+                {
+                    throw new InvalidOperationException("Teacher not found");
+                }
+
+                if (teacher.Role != UserRole.Teacher.ToString())
+                {
+                    throw new InvalidOperationException("Only teachers can grade submissions");
+                }
+
+                submission.Grade = request.Grade;
+                submission.Remarks = request.Remarks;
+                submission.GradedByTeacherId = teacherId;
+                submission.UpdatedDate = DateTime.UtcNow;
+
+                await _submissionRepository.UpdateAsync(submission);
+
+                var updatedSubmission = await _submissionRepository.GetByIdAsync(submission.Id);
+
+                SubmissionDto submissionDto = new()
+                {
+                    Id = updatedSubmission!.Id,
+                    AssignmentId = updatedSubmission.AssignmentId,
+                    StudentId = updatedSubmission.StudentId,
+                    StudentName = updatedSubmission.Student?.Name,
+                    SubmittedDate = updatedSubmission.SubmittedDate,
+                    FileUrl = updatedSubmission.FileUrl,
+                    OriginalFileName = updatedSubmission.OriginalFileName,
+                    StoredFileName = updatedSubmission.StoredFileName,
+                    Grade = updatedSubmission.Grade,
+                    GradedByTeacherId = updatedSubmission.GradedByTeacherId,
+                    GradedByTeacherName = updatedSubmission.GradedByTeacher?.Name,
+                    Remarks = updatedSubmission.Remarks,
+                    CreatedDate = updatedSubmission.CreatedDate
+                };
+
+                return submissionDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while grading submission {submissionId} by teacher {teacherId}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<SubmissionDto> GetSubmissionByIdForStudentAsync(int submissionId, int studentId)
+        {
+            try
+            {
+                var submission = await _submissionRepository.GetByIdAsync(submissionId);
+                if (submission is null)
+                {
+                    throw new InvalidOperationException("Submission not found");
+                }
+
+                if (submission.StudentId != studentId)
+                {
+                    throw new InvalidOperationException("You can only view your own submissions");
+                }
+
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view submissions");
+                }
+
+                SubmissionDto submissionDto = new()
+                {
+                    Id = submission.Id,
+                    AssignmentId = submission.AssignmentId,
+                    StudentId = submission.StudentId,
+                    StudentName = submission.Student?.Name,
+                    SubmittedDate = submission.SubmittedDate,
+                    FileUrl = submission.FileUrl,
+                    OriginalFileName = submission.OriginalFileName,
+                    StoredFileName = submission.StoredFileName,
+                    Grade = submission.Grade,
+                    GradedByTeacherId = submission.GradedByTeacherId,
+                    GradedByTeacherName = submission.GradedByTeacher?.Name,
+                    Remarks = submission.Remarks,
+                    CreatedDate = submission.CreatedDate
+                };
+
+                return submissionDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while retrieving submission {submissionId} for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

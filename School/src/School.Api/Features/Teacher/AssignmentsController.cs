@@ -44,5 +44,18 @@ namespace School.Api.Features.Teacher
             var result = await _assignmentService.GetByClassIdAsync(classId, teacherId);
             return Ok(result);
         }
+
+        [HttpPost("{id}/grade")]
+        public async Task<IActionResult> GradeSubmission(int id, [FromBody] GradeSubmissionRequest request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int teacherId))
+            {
+                return Unauthorized("Invalid user information");
+            }
+
+            var result = await _assignmentService.GradeSubmissionAsync(id, request, teacherId);
+            return Ok(result);
+        }
     }
 }

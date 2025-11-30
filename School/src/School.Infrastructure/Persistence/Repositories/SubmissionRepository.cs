@@ -34,9 +34,26 @@ namespace School.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(s => s.Id == id && (s.IsDeleted == null || s.IsDeleted == false));
         }
 
+        public async Task<Submission?> GetByIdWithAssignmentAndClassAsync(int id)
+        {
+            return await _dbContext.Submissions
+                .Include(s => s.Assignment)
+                    .ThenInclude(a => a!.Class)
+                .Include(s => s.Student)
+                .Include(s => s.GradedByTeacher)
+                .FirstOrDefaultAsync(s => s.Id == id && (s.IsDeleted == null || s.IsDeleted == false));
+        }
+
         public async Task<Submission> AddAsync(Submission submission)
         {
             _dbContext.Submissions.Add(submission);
+            await _dbContext.SaveChangesAsync();
+            return submission;
+        }
+
+        public async Task<Submission> UpdateAsync(Submission submission)
+        {
+            _dbContext.Submissions.Update(submission);
             await _dbContext.SaveChangesAsync();
             return submission;
         }
