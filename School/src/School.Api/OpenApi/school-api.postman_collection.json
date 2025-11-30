@@ -23,11 +23,12 @@
               }
             },
             "url": {
-              "raw": "{{BaseURL}}auth/register",
+              "raw": "{{BaseURL}}api/auth/register",
               "host": [
-                "{{BaseURL}}auth"
+                "{{BaseURL}}api"
               ],
               "path": [
+                "auth",
                 "register"
               ]
             }
@@ -41,7 +42,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"huzaifastudent@huzaifatanveer.com\",\r\n  \"password\": \"P@ssw0rd\"\r\n}",
+              "raw": "{\r\n  \"email\": \"physicsTeacher@huzaifatanveer.com\",\r\n  \"password\": \"P@ssw0rd\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -49,11 +50,12 @@
               }
             },
             "url": {
-              "raw": "{{BaseURL}}auth/login",
+              "raw": "{{BaseURL}}api/auth/login",
               "host": [
-                "{{BaseURL}}auth"
+                "{{BaseURL}}api"
               ],
               "path": [
+                "auth",
                 "login"
               ]
             }
@@ -75,11 +77,12 @@
               }
             },
             "url": {
-              "raw": "{{BaseURL}}auth/refresh-token",
+              "raw": "{{BaseURL}}api/auth/refresh-token",
               "host": [
-                "{{BaseURL}}auth"
+                "{{BaseURL}}api"
               ],
               "path": [
+                "auth",
                 "refresh-token"
               ]
             }
@@ -119,11 +122,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/departments",
+                  "raw": "{{BaseURL}}api/admin/departments",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "departments"
                   ]
                 }
@@ -155,11 +159,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/departments",
+                  "raw": "{{BaseURL}}api/admin/departments",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "departments"
                   ]
                 }
@@ -182,11 +187,12 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/departments/1",
+                  "raw": "{{BaseURL}}api/admin/departments/1",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "departments",
                     "1"
                   ]
@@ -224,11 +230,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/courses",
+                  "raw": "{{BaseURL}}api/admin/courses",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "courses"
                   ]
                 }
@@ -260,11 +267,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/courses",
+                  "raw": "{{BaseURL}}api/admin/courses",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "courses"
                   ]
                 }
@@ -287,11 +295,12 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/courses/1",
+                  "raw": "{{BaseURL}}api/admin/courses/1",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "courses",
                     "1"
                   ]
@@ -329,11 +338,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/users",
+                  "raw": "{{BaseURL}}api/admin/users",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users"
                   ]
                 }
@@ -356,11 +366,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/users/4",
+                  "raw": "{{BaseURL}}api/admin/users/4",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users",
                     "4"
                   ]
@@ -384,11 +395,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/users",
+                  "raw": "{{BaseURL}}api/admin/users",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users"
                   ]
                 }
@@ -411,11 +423,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/users/role/teacher",
+                  "raw": "{{BaseURL}}api/admin/users/role/teacher",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users",
                     "role",
                     "teacher"
@@ -449,11 +462,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}admin/users",
+                  "raw": "{{BaseURL}}api/admin/users",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users"
                   ]
                 }
@@ -476,11 +490,12 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/users/4",
+                  "raw": "{{BaseURL}}api/admin/users/4",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users",
                     "4"
                   ]
@@ -504,11 +519,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/users/students/paged?PageNumber=2&PageSize=1",
+                  "raw": "{{BaseURL}}api/admin/users/students/paged?PageNumber=2&PageSize=1",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "users",
                     "students",
                     "paged"
@@ -548,11 +564,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/classes",
+                  "raw": "{{BaseURL}}api/admin/classes",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "classes"
                   ]
                 }
@@ -575,11 +592,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/classes/2",
+                  "raw": "{{BaseURL}}api/admin/classes/2",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "classes",
                     "2"
                   ]
@@ -603,11 +621,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}admin/classes/paged?PageNumber=2&PageSize=2",
+                  "raw": "{{BaseURL}}api/admin/classes/paged?PageNumber=2&PageSize=2",
                   "host": [
-                    "{{BaseURL}}admin"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "admin",
                     "classes",
                     "paged"
                   ],
@@ -660,11 +679,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes",
+                  "raw": "{{BaseURL}}api/teacher/classes",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes"
                   ]
                 }
@@ -687,11 +707,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes/2",
+                  "raw": "{{BaseURL}}api/teacher/classes/2",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes",
                     "2"
                   ]
@@ -715,11 +736,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes",
+                  "raw": "{{BaseURL}}api/teacher/classes",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes"
                   ]
                 }
@@ -751,11 +773,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes",
+                  "raw": "{{BaseURL}}api/teacher/classes",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes"
                   ]
                 }
@@ -778,11 +801,12 @@
                 "method": "PUT",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes/1/deactivate",
+                  "raw": "{{BaseURL}}api/teacher/classes/1/deactivate",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes",
                     "1",
                     "deactivate"
@@ -807,11 +831,12 @@
                 "method": "PUT",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes/1/activate",
+                  "raw": "{{BaseURL}}api/teacher/classes/1/activate",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes",
                     "1",
                     "activate"
@@ -845,11 +870,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes/3/enroll",
+                  "raw": "{{BaseURL}}api/teacher/classes/3/enroll",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes",
                     "3",
                     "enroll"
@@ -866,7 +892,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImI3NTk3NTEwLWM2NjgtNDU5Ni1iZjQ3LTRkMWI3NzU5N2I5OCIsImV4cCI6MTc2NDQ1NjMyNiwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.oz_PBryfR70kgzEZFkjpdmUpNDlFWQCW2NrPPiTSNHw",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjIwYmFiY2Y0LTY0NmYtNGVmNy04Y2RmLTU4NTA3Y2FiMzlmOSIsImV4cCI6MTc2NDQ3NDYzNCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.h2Up5N2D-E8a0Ko1NEs3jIWs-TbKvb953SH8xb5mE1o",
                       "type": "string"
                     }
                   ]
@@ -874,13 +900,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/classes/2/enrollments",
+                  "raw": "{{BaseURL}}api/teacher/classes/3/enrollments",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "classes",
-                    "2",
+                    "3",
                     "enrollments"
                   ]
                 }
@@ -917,11 +944,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/attendances",
+                  "raw": "{{BaseURL}}api/teacher/attendances",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "attendances"
                   ]
                 }
@@ -944,11 +972,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/attendances/2",
+                  "raw": "{{BaseURL}}api/teacher/attendances/2",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "attendances",
                     "2"
                   ]
@@ -969,7 +998,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjgyMDk1MmY0LTEyM2YtNDY1ZS1hYWViLTkzMzczMDI4OWZlZiIsImV4cCI6MTc2NDQ1NzIxOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.dmUAZ_9-1fUo2rxF_G7s3nyayCvpErIg6hW-JYxRKYk",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6Ijk4ZWRiN2IwLWZhNWMtNGE4OS04YjdmLTcxNTUyZjQ0NmQzYSIsImV4cCI6MTc2NDUxMzU0MCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.3xDyFMLttEs8eb6qK1hfuxPbKOGrc-NnIMRxlLzCYBM",
                       "type": "string"
                     }
                   ]
@@ -978,7 +1007,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"classId\": 2,\r\n  \"title\": \"Assignment # 1\",\r\n  \"description\": \"This is Physics Assignment for every student in Class Two.\",\r\n  \"dueDate\": \"2025-11-29T22:40:47.616Z\"\r\n}",
+                  "raw": "{\r\n  \"classId\": 1,\r\n  \"title\": \"Assignment # 1\",\r\n  \"description\": \"This is Physics Assignment for every student in Class Two.\",\r\n  \"dueDate\": \"2026-11-29T22:40:47.616Z\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -986,11 +1015,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/assignments",
+                  "raw": "{{BaseURL}}api/teacher/assignments",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "assignments"
                   ]
                 }
@@ -1013,11 +1043,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/assignments/2",
+                  "raw": "{{BaseURL}}api/teacher/assignments/2",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "assignments",
                     "2"
                   ]
@@ -1042,7 +1073,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"grade\": 85,\r\n  \"remarks\": \"Good Work\"\r\n}",
+                  "raw": "{\r\n  \"grade\": 56.2,\r\n  \"remarks\": \"Good Work\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1050,13 +1081,14 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/assignments/1/grade",
+                  "raw": "{{BaseURL}}api/teacher/assignments/2/grade",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "assignments",
-                    "1",
+                    "2",
                     "grade"
                   ]
                 }
@@ -1079,11 +1111,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/assignments/paged?PageNumber=1&PageSize=10",
+                  "raw": "{{BaseURL}}api/teacher/assignments/paged?PageNumber=1&PageSize=10",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "assignments",
                     "paged"
                   ],
@@ -1131,11 +1164,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}teacher/notifications",
+                  "raw": "{{BaseURL}}api/teacher/notifications",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "notifications"
                   ]
                 }
@@ -1158,11 +1192,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}teacher/notifications",
+                  "raw": "{{BaseURL}}api/teacher/notifications",
                   "host": [
-                    "{{BaseURL}}teacher"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "teacher",
                     "notifications"
                   ]
                 }
@@ -1195,11 +1230,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}lookup/courses/1",
+                  "raw": "{{BaseURL}}api/lookup/courses/1",
                   "host": [
-                    "{{BaseURL}}lookup"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "lookup",
                     "courses",
                     "1"
                   ]
@@ -1223,11 +1259,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}lookup/courses",
+                  "raw": "{{BaseURL}}api/lookup/courses",
                   "host": [
-                    "{{BaseURL}}lookup"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "lookup",
                     "courses"
                   ]
                 }
@@ -1255,11 +1292,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}lookup/departments",
+                  "raw": "{{BaseURL}}api/lookup/departments",
                   "host": [
-                    "{{BaseURL}}lookup"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "lookup",
                     "departments"
                   ]
                 }
@@ -1282,11 +1320,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}lookup/departments/1",
+                  "raw": "{{BaseURL}}api/lookup/departments/1",
                   "host": [
-                    "{{BaseURL}}lookup"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "lookup",
                     "departments",
                     "1"
                   ]
@@ -1320,11 +1359,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/assignments/1",
+                  "raw": "{{BaseURL}}api/student/assignments/1",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "assignments",
                     "1"
                   ]
@@ -1363,11 +1403,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{BaseURL}}student/assignments/1/submit",
+                  "raw": "{{BaseURL}}api/student/assignments/1/submit",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "assignments",
                     "1",
                     "submit"
@@ -1392,11 +1433,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/assignments/submissions/2",
+                  "raw": "{{BaseURL}}api/student/assignments/submissions/2",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "assignments",
                     "submissions",
                     "2"
@@ -1408,14 +1450,25 @@
             {
               "name": "GetGrades",
               "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjIzMmM3MmQ4LTYwMDEtNDAxOS04ODExLTYyOTYyYWQzNjViMCIsImV4cCI6MTc2NDQ3NTY3NSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.M44YKeBJCslS5DG2WIbS_EqbUbYJwO8AMhRgMgcQ89o",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/assignments/grades",
+                  "raw": "{{BaseURL}}api/student/assignments/grades",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "assignments",
                     "grades"
                   ]
@@ -1444,11 +1497,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/classes",
+                  "raw": "{{BaseURL}}api/student/classes",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "classes"
                   ]
                 }
@@ -1476,11 +1530,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/attendances",
+                  "raw": "{{BaseURL}}api/student/attendances",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "attendances"
                   ]
                 }
@@ -1503,11 +1558,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/attendances/2",
+                  "raw": "{{BaseURL}}api/student/attendances/2",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "attendances",
                     "2"
                   ]
@@ -1536,11 +1592,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/notifications",
+                  "raw": "{{BaseURL}}api/student/notifications",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "notifications"
                   ]
                 }
@@ -1563,11 +1620,12 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{BaseURL}}student/notifications/4",
+                  "raw": "{{BaseURL}}api/student/notifications/4",
                   "host": [
-                    "{{BaseURL}}student"
+                    "{{BaseURL}}api"
                   ],
                   "path": [
+                    "student",
                     "notifications",
                     "4"
                   ]
@@ -1603,7 +1661,7 @@
   "variable": [
     {
       "key": "BaseURL",
-      "value": "https://localhost:44391/api/"
+      "value": "https://localhost:44391/"
     }
   ]
 }
