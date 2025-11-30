@@ -550,7 +550,42 @@ For validation errors:
 }
 ```
 
+## Swagger Documentation
+
+Swagger UI is available at: **https://localhost:44391/swagger**
+
+## Database Setup
+
+1. Add your database connection string in the appropriate configuration file:
+   - For Development: `appsettings.Development.json`
+   - For Production: `appsettings.Production.json`
+   - Generally: `appsettings.json`
+
+   Connection string format:
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=SchoolManagementDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+   }
+   ```
+
+2. Open Package Manager Console in Visual Studio and set the default project to `School.Infrastructure`.
+
+3. Execute the following command to create the initial migration:
+   ```
+   add-migration InitialMigration
+   ```
+
+4. Execute the following command to create the database and tables:
+   ```
+   update-database
+   ```
+
+The database and all tables will be created automatically.
+
 ---
+
+
+
 
 ## Notes
 
@@ -560,3 +595,4 @@ For validation errors:
 - Soft delete is used - deleted entities are marked as deleted but not removed from database
 - All endpoints require authentication except registration
 - Role-based authorization is enforced at the controller level
+
