@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -12,14 +15,20 @@ namespace School.Infrastructure.Services
         private readonly ILogger<CourseService> _logger;
         private readonly ICourseRepository _courseRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMemoryCache _cache;
+        private readonly CacheSettings _cacheSettings;
 
         public CourseService(ILogger<CourseService> logger,
             ICourseRepository courseRepository,
-            IDepartmentRepository departmentRepository)
+            IDepartmentRepository departmentRepository,
+            IMemoryCache cache,
+            IOptions<CacheSettings> cacheSettings)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
             _departmentRepository = departmentRepository ?? throw new ArgumentNullException(nameof(departmentRepository));
+            _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _cacheSettings = cacheSettings?.Value ?? throw new ArgumentNullException(nameof(cacheSettings));
         }
 
         public async Task<CourseDto> CreateAsync(CreateCourseRequest request)
@@ -64,6 +73,8 @@ namespace School.Infrastructure.Services
                     CreatedDate = createdCourse.CreatedDate,
                     UpdatedDate = createdCourse.UpdatedDate
                 };
+
+                _cache.Remove(CacheKeys.CourseList);
 
                 return courseDto;
             }
@@ -110,6 +121,11 @@ namespace School.Infrastructure.Services
         {
             try
             {
+                if (_cache.TryGetValue(CacheKeys.CourseList, out List<CourseDto>? cachedCourses) && cachedCourses != null)
+                {
+                    return cachedCourses;
+                }
+
                 var courses = await _courseRepository.GetAllAsync();
 
                 List<CourseDto> courseDtos = courses.Select(course => new CourseDto
@@ -124,6 +140,13 @@ namespace School.Infrastructure.Services
                     CreatedDate = course.CreatedDate,
                     UpdatedDate = course.UpdatedDate
                 }).ToList();
+
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_cacheSettings.CourseExpirySeconds)
+                };
+
+                _cache.Set(CacheKeys.CourseList, courseDtos, cacheOptions);
 
                 return courseDtos;
             }
@@ -180,6 +203,8 @@ namespace School.Infrastructure.Services
                     UpdatedDate = updatedCourse.UpdatedDate
                 };
 
+                _cache.Remove(CacheKeys.CourseList);
+
                 return courseDto;
             }
             catch (Exception ex)
@@ -203,6 +228,8 @@ namespace School.Infrastructure.Services
                 course.IsActive = false;
                 course.UpdatedDate = DateTime.UtcNow;
                 await _courseRepository.UpdateAsync(course);
+
+                _cache.Remove(CacheKeys.CourseList);
             }
             catch (Exception ex)
             {

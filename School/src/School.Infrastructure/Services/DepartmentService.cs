@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -13,14 +16,20 @@ namespace School.Infrastructure.Services
         private readonly ILogger<DepartmentService> _logger;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMemoryCache _cache;
+        private readonly CacheSettings _cacheSettings;
 
         public DepartmentService(ILogger<DepartmentService> logger,
             IDepartmentRepository departmentRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IMemoryCache cache,
+            IOptions<CacheSettings> cacheSettings)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _departmentRepository = departmentRepository ?? throw new ArgumentNullException(nameof(departmentRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _cacheSettings = cacheSettings?.Value ?? throw new ArgumentNullException(nameof(cacheSettings));
         }
 
         public async Task<DepartmentDto> CreateAsync(CreateDepartmentRequest request)
@@ -69,6 +78,8 @@ namespace School.Infrastructure.Services
                     CreatedDate = createdDepartment.CreatedDate,
                     UpdatedDate = createdDepartment.UpdatedDate
                 };
+
+                _cache.Remove(CacheKeys.DepartmentList);
 
                 return departmentDto;
             }
@@ -159,6 +170,8 @@ namespace School.Infrastructure.Services
                     UpdatedDate = updatedDepartment.UpdatedDate
                 };
 
+                _cache.Remove(CacheKeys.DepartmentList);
+
                 return departmentDto;
             }
             catch (Exception ex)
@@ -181,6 +194,8 @@ namespace School.Infrastructure.Services
                 department.IsDeleted = true;
                 department.UpdatedDate = DateTime.UtcNow;
                 await _departmentRepository.UpdateAsync(department);
+
+                _cache.Remove(CacheKeys.DepartmentList);
             }
             catch (Exception ex)
             {
@@ -193,6 +208,11 @@ namespace School.Infrastructure.Services
         {
             try
             {
+                if (_cache.TryGetValue(CacheKeys.DepartmentList, out List<DepartmentDto>? cachedDepartments) && cachedDepartments != null)
+                {
+                    return cachedDepartments;
+                }
+
                 var departments = await _departmentRepository.GetAllAsync();
 
                 List<DepartmentDto> departmentDtos = departments.Select(department => new DepartmentDto
@@ -205,6 +225,13 @@ namespace School.Infrastructure.Services
                     CreatedDate = department.CreatedDate,
                     UpdatedDate = department.UpdatedDate
                 }).ToList();
+
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_cacheSettings.DepartmentExpirySeconds)
+                };
+
+                _cache.Set(CacheKeys.DepartmentList, departmentDtos, cacheOptions);
 
                 return departmentDtos;
             }
