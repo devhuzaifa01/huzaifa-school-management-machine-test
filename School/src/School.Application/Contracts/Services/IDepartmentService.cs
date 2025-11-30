@@ -1,5 +1,5 @@
 ﻿using School.Application.Dtos;
-using School.Application.Requests.Admin;
+using School.Application.Requests.Department;
 
 namespace School.Application.Contracts.Services
 {

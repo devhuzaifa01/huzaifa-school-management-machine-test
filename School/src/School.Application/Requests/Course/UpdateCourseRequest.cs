@@ -1,7 +1,8 @@
-﻿namespace School.Application.Requests.Admin
+namespace School.Application.Requests.Course
 {
-    public class CreateCourseRequest
+    public class UpdateCourseRequest
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
         public string? Description { get; set; }
@@ -9,3 +10,4 @@
         public int Credits { get; set; }
     }
 }
+

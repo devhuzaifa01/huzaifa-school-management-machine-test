@@ -1,4 +1,4 @@
-namespace School.Application.Requests.Admin
+namespace School.Application.Requests.User
 {
     public class CreateUserRequest
     {

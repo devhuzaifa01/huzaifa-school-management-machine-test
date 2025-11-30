@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using School.Application.Contracts.Services;
-using School.Application.Requests.Admin;
+using School.Application.Requests.Course;
 
 namespace School.Api.Features.Admin
 {

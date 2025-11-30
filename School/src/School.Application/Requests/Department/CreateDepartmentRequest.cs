@@ -1,4 +1,4 @@
-﻿namespace School.Application.Requests.Admin
+namespace School.Application.Requests.Department
 {
     public class CreateDepartmentRequest
     {
@@ -7,3 +7,4 @@
         public int? HeadOfDepartmentId { get; set; }
     }
 }
+

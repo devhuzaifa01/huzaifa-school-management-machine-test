@@ -1,4 +1,4 @@
-namespace School.Application.Requests.Admin
+namespace School.Application.Requests.Department
 {
     public class UpdateDepartmentRequest
     {
