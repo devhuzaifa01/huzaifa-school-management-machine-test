@@ -4,6 +4,64 @@
 
 This document provides comprehensive documentation for the School Management System API. The API is organized by user roles (Admin, Teacher, Student) and includes lookup endpoints for common data access. This API project is build with .NET 8 Web APIs.
 
+## Architecture
+
+This project follows **Clean Architecture** (Onion Architecture) pattern with clear separation of concerns across four layers.
+
+### Layer Structure
+
+### School.Domain
+Core domain layer containing:
+- Entities (User, Class, Course, Department, etc.)
+- Enums (UserRole, AttendanceStatus)
+- Base classes (BaseEntity)
+
+**No dependencies** on other projects.
+
+### School.Application
+Application/Business logic layer containing:
+- Contracts (interfaces for Services and Repositories)
+- DTOs (Data Transfer Objects)
+- Request models
+- Validators (FluentValidation)
+- Common utilities and exceptions
+
+**Depends on:** School.Domain only
+
+### School.Infrastructure
+Infrastructure layer containing:
+- Persistence (DbContext, Repositories, EF Core configurations)
+- Service implementations
+- Identity services (JWT)
+- Email services
+- File storage
+- Caching
+
+**Depends on:** School.Application, School.Domain
+
+### School.Api
+Presentation/API layer containing:
+- Controllers (organized by features: Admin, Teacher, Student, Lookup)
+- Configuration setup
+- Filters and Middlewares
+- Dependency Injection
+- Swagger setup
+
+**Depends on:** All other layers
+
+## Key Principles
+
+- **Dependency Inversion**: Inner layers define interfaces, outer layers implement them
+- **Separation of Concerns**: Each layer has a single responsibility
+- **Testability**: Business logic is independent of infrastructure
+- **Maintainability**: Changes in one layer don't affect others
+
+## Data Flow
+
+API Controllers → Application Services → Repositories → Database
+
+Controllers receive requests, call application services which contain business logic, and services use repositories for data access.
+
 ## Role & Responsibilities
 
 ### Admin
