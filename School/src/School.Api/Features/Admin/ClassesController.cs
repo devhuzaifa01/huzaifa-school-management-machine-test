@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using School.Application.Common;
 using School.Application.Contracts.Services;
 
 namespace School.Api.Features.Admin
@@ -27,6 +28,13 @@ namespace School.Api.Features.Admin
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _classService.GetByIdForAdminAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAllPaged([FromQuery] PagingParameters parameters)
+        {
+            var result = await _classService.GetAllPagedForAdminAsync(parameters);
             return Ok(result);
         }
     }

@@ -1,4 +1,5 @@
-﻿using School.Application.Dtos;
+﻿using School.Application.Common;
+using School.Application.Dtos;
 using School.Application.Requests.Teacher;
 
 namespace School.Application.Contracts.Services
@@ -13,5 +14,6 @@ namespace School.Application.Contracts.Services
         Task ActivateAsync(int id);
         Task<ClassDto> GetByIdForAdminAsync(int id);
         Task<List<ClassDto>> GetAllForAdminAsync();
+        Task<PagedResult<ClassDto>> GetAllPagedForAdminAsync(PagingParameters parameters);
     }
 }

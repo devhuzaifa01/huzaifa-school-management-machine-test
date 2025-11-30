@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -352,6 +353,45 @@ namespace School.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An exception occurred while fetching all classes for admin. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<PagedResult<ClassDto>> GetAllPagedForAdminAsync(PagingParameters parameters)
+        {
+            try
+            {
+                var (classes, totalCount) = await _classRepository.GetAllPagedAsync(parameters.PageNumber, parameters.PageSize);
+
+                var classDtos = classes.Select(classEntity => new ClassDto
+                {
+                    Id = classEntity.Id,
+                    Name = classEntity.Name,
+                    CourseId = classEntity.CourseId,
+                    CourseName = classEntity.Course?.Name,
+                    CourseCode = classEntity.Course?.Code,
+                    TeacherId = classEntity.TeacherId,
+                    TeacherName = classEntity.Teacher?.Name,
+                    TeacherEmail = classEntity.Teacher?.Email,
+                    Semester = classEntity.Semester,
+                    StartDate = classEntity.StartDate,
+                    EndDate = classEntity.EndDate,
+                    IsActive = classEntity.IsActive,
+                    CreatedDate = classEntity.CreatedDate,
+                    UpdatedDate = classEntity.UpdatedDate
+                }).ToList();
+
+                return new PagedResult<ClassDto>
+                {
+                    Items = classDtos,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching all classes with pagination for admin. {ex.Message}", ex);
                 throw;
             }
         }

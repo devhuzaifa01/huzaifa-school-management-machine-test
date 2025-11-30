@@ -10,5 +10,6 @@ namespace School.Application.Contracts.Persistence
         Task<List<Class>> GetAllByTeacherIdAsync(int teacherId);
         Task<Class> AddAsync(Class classEntity);
         Task<Class> UpdateAsync(Class classEntity);
+        Task<(List<Class> Items, int TotalCount)> GetAllPagedAsync(int pageNumber, int pageSize);
     }
 }

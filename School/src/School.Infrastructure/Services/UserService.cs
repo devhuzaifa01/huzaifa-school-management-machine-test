@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -196,6 +197,37 @@ namespace School.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An exception occurred while fetching users by role {role}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<PagedResult<UserDto>> GetStudentsPagedAsync(PagingParameters parameters)
+        {
+            try
+            {
+                var (users, totalCount) = await _userRepository.GetStudentsPagedAsync(parameters.PageNumber, parameters.PageSize);
+
+                var userDtos = users.Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Role,
+                    CreatedDate = user.CreatedDate,
+                    UpdatedDate = user.UpdatedDate
+                }).ToList();
+
+                return new PagedResult<UserDto>
+                {
+                    Items = userDtos,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching students with pagination. {ex.Message}", ex);
                 throw;
             }
         }

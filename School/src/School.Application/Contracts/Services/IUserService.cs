@@ -1,4 +1,5 @@
-﻿using School.Application.Dtos;
+﻿using School.Application.Common;
+using School.Application.Dtos;
 using School.Application.Requests.User;
 
 namespace School.Application.Contracts.Services
@@ -11,5 +12,6 @@ namespace School.Application.Contracts.Services
         Task<List<UserDto>> GetByRoleAsync(string role);
         Task<UserDto> UpdateAsync(UpdateUserRequest request);
         Task DeleteAsync(int id);
+        Task<PagedResult<UserDto>> GetStudentsPagedAsync(PagingParameters parameters);
     }
 }

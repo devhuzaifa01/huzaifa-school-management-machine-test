@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using School.Application.Common;
 using School.Application.Contracts.Services;
 using School.Application.Requests.Teacher;
 using System.Security.Claims;
@@ -55,6 +56,19 @@ namespace School.Api.Features.Teacher
             }
 
             var result = await _assignmentService.GradeSubmissionAsync(id, request, teacherId);
+            return Ok(result);
+        }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAllPaged([FromQuery] PagingParameters parameters)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int teacherId))
+            {
+                return Unauthorized("Invalid user information");
+            }
+
+            var result = await _assignmentService.GetByTeacherIdPagedAsync(teacherId, parameters);
             return Ok(result);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using School.Application.Common;
 using School.Application.Dtos;
 using School.Application.Requests.Teacher;
 
@@ -13,5 +14,6 @@ namespace School.Application.Contracts.Services
         Task<SubmissionDto> GradeSubmissionAsync(int submissionId, GradeSubmissionRequest request, int teacherId);
         Task<SubmissionDto> GetSubmissionByIdForStudentAsync(int submissionId, int studentId);
         Task<List<SubmissionDto>> GetSubmissionsByStudentIdAsync(int studentId);
+        Task<PagedResult<AssignmentDto>> GetByTeacherIdPagedAsync(int teacherId, PagingParameters parameters);
     }
 }

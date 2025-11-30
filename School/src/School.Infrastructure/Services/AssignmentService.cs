@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -446,6 +447,51 @@ namespace School.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An exception occurred while retrieving submissions for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<PagedResult<AssignmentDto>> GetByTeacherIdPagedAsync(int teacherId, PagingParameters parameters)
+        {
+            try
+            {
+                var teacher = await _userRepository.GetByIdAsync(teacherId);
+                if (teacher is null)
+                {
+                    throw new InvalidOperationException("Teacher not found");
+                }
+
+                if (teacher.Role != UserRole.Teacher.ToString())
+                {
+                    throw new InvalidOperationException("Only teachers can view their assignments");
+                }
+
+                var (assignments, totalCount) = await _assignmentRepository.GetByTeacherIdPagedAsync(teacherId, parameters.PageNumber, parameters.PageSize);
+
+                var assignmentDtos = assignments.Select(assignment => new AssignmentDto
+                {
+                    Id = assignment.Id,
+                    ClassId = assignment.ClassId,
+                    ClassName = assignment.Class?.Name,
+                    Title = assignment.Title,
+                    Description = assignment.Description,
+                    DueDate = assignment.DueDate,
+                    CreatedByTeacherId = assignment.CreatedByTeacherId,
+                    CreatedByTeacherName = assignment.CreatedByTeacher?.Name,
+                    CreatedDate = assignment.CreatedDate
+                }).ToList();
+
+                return new PagedResult<AssignmentDto>
+                {
+                    Items = assignmentDtos,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while retrieving assignments with pagination for teacher {teacherId}. {ex.Message}", ex);
                 throw;
             }
         }

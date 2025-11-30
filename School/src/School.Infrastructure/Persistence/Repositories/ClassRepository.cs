@@ -61,5 +61,23 @@ namespace School.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
             return classEntity;
         }
+
+        public async Task<(List<Class> Items, int TotalCount)> GetAllPagedAsync(int pageNumber, int pageSize)
+        {
+            var query = _dbContext.Classes
+                .Include(c => c.Course)
+                .Include(c => c.Teacher)
+                .Where(c => c.IsDeleted == null || c.IsDeleted == false);
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderByDescending(c => c.CreatedDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
     }
 }

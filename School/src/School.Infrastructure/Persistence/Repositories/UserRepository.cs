@@ -49,5 +49,21 @@ namespace School.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
             return user;
         }
+
+        public async Task<(List<User> Items, int TotalCount)> GetStudentsPagedAsync(int pageNumber, int pageSize)
+        {
+            var query = _dbContext.Users
+                .Where(u => u.Role.ToLower() == "student" && (u.IsDeleted == null || u.IsDeleted == false));
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(u => u.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
     }
 }

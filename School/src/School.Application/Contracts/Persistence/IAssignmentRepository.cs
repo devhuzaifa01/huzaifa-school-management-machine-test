@@ -9,5 +9,6 @@ namespace School.Application.Contracts.Persistence
         Task<List<Assignment>> GetByClassIdAsync(int classId);
         Task<List<Assignment>> GetByClassIdAndTeacherIdAsync(int classId, int teacherId);
         Task<Assignment> AddAsync(Assignment assignment);
+        Task<(List<Assignment> Items, int TotalCount)> GetByTeacherIdPagedAsync(int teacherId, int pageNumber, int pageSize);
     }
 }

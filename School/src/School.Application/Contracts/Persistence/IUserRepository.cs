@@ -10,5 +10,6 @@ namespace School.Application.Contracts.Persistence
         Task<List<User>> GetByRoleAsync(string role);
         Task<User> AddAsync(User user);
         Task<User> UpdateAsync(User user);
+        Task<(List<User> Items, int TotalCount)> GetStudentsPagedAsync(int pageNumber, int pageSize);
     }
 }

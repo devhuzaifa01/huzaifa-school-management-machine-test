@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using School.Application.Common;
 using School.Application.Contracts.Services;
 using School.Application.Requests.User;
 
@@ -57,6 +58,13 @@ namespace School.Api.Features.Admin
         {
             await _userService.DeleteAsync(id);
             return Ok();
+        }
+
+        [HttpGet("students/paged")]
+        public async Task<IActionResult> GetStudentsPaged([FromQuery] PagingParameters parameters)
+        {
+            var result = await _userService.GetStudentsPagedAsync(parameters);
+            return Ok(result);
         }
     }
 }
