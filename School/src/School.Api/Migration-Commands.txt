@@ -2,4 +2,4 @@
 add-migration CreateDatabaseEntities
 add-migration AddIsDeletedBitInBaseEntity
 add-migration UpdateDataTypeOfAttendanceStatusInAttendancesTable
-
+add-migration UpdatedSubmissionTableWithOriginalFileNameAndStoredFileNameFields

@@ -22,6 +22,14 @@ namespace School.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(a => a.Id == id && (a.IsDeleted == null || a.IsDeleted == false));
         }
 
+        public async Task<Assignment?> GetByIdWithClassAsync(int id)
+        {
+            return await _dbContext.Assignments
+                .Include(a => a.Class)
+                .Include(a => a.CreatedByTeacher)
+                .FirstOrDefaultAsync(a => a.Id == id && (a.IsDeleted == null || a.IsDeleted == false));
+        }
+
         public async Task<List<Assignment>> GetByClassIdAsync(int classId)
         {
             return await _dbContext.Assignments

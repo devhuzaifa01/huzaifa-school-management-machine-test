@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
 using School.Application.Requests.Teacher;
 using School.Domain.Entities;
+using School.Domain.Enums;
 
 namespace School.Infrastructure.Services
 {
@@ -12,14 +14,26 @@ namespace School.Infrastructure.Services
         private readonly ILogger<AssignmentService> _logger;
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly IClassRepository _classRepository;
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        private readonly ISubmissionRepository _submissionRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly FileUploadService _fileUploadService;
 
         public AssignmentService(ILogger<AssignmentService> logger,
             IAssignmentRepository assignmentRepository,
-            IClassRepository classRepository)
+            IClassRepository classRepository,
+            IEnrollmentRepository enrollmentRepository,
+            ISubmissionRepository submissionRepository,
+            IUserRepository userRepository,
+            FileUploadService fileUploadService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _assignmentRepository = assignmentRepository ?? throw new ArgumentNullException(nameof(assignmentRepository));
             _classRepository = classRepository ?? throw new ArgumentNullException(nameof(classRepository));
+            _enrollmentRepository = enrollmentRepository ?? throw new ArgumentNullException(nameof(enrollmentRepository));
+            _submissionRepository = submissionRepository ?? throw new ArgumentNullException(nameof(submissionRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _fileUploadService = fileUploadService ?? throw new ArgumentNullException(nameof(fileUploadService));
         }
 
         public async Task<AssignmentDto> CreateAsync(CreateAssignmentRequest request, int teacherId)
@@ -35,6 +49,11 @@ namespace School.Infrastructure.Services
                 if (!classEntity.IsActive)
                 {
                     throw new InvalidOperationException("Cannot create assignment for an inactive class");
+                }
+
+                if (request.DueDate.Date < DateTime.UtcNow.Date)
+                {
+                    throw new InvalidOperationException("Assignment due date cannot be in the past");
                 }
 
                 Assignment assignment = new()
@@ -103,6 +122,159 @@ namespace School.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An exception occurred while retrieving assignments for class {classId}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<StudentAssignmentDto> GetByIdForStudentAsync(int id, int studentId)
+        {
+            try
+            {
+                var assignment = await _assignmentRepository.GetByIdWithClassAsync(id);
+                if (assignment is null)
+                {
+                    throw new InvalidOperationException("Assignment not found");
+                }
+
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view assignments");
+                }
+
+                var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, assignment.ClassId);
+                if (!isEnrolled)
+                {
+                    throw new InvalidOperationException("You are not enrolled in the class for this assignment");
+                }
+
+                var submission = await _submissionRepository.GetByAssignmentIdAndStudentIdAsync(id, studentId);
+                string status = submission is not null ? "Submitted" : "Not Submitted";
+
+                StudentAssignmentDto assignmentDto = new()
+                {
+                    Id = assignment.Id,
+                    ClassId = assignment.ClassId,
+                    ClassName = assignment.Class?.Name,
+                    Title = assignment.Title,
+                    Description = assignment.Description,
+                    DueDate = assignment.DueDate,
+                    CreatedByTeacherId = assignment.CreatedByTeacherId,
+                    CreatedByTeacherName = assignment.CreatedByTeacher?.Name,
+                    CreatedDate = assignment.CreatedDate,
+                    Status = status
+                };
+
+                return assignmentDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while retrieving assignment {id} for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<SubmissionDto> SubmitAssignmentAsync(int assignmentId, IFormFile file, int studentId, string webRootPath)
+        {
+            string? storedFileName = null;
+
+            try
+            {
+                var assignment = await _assignmentRepository.GetByIdWithClassAsync(assignmentId);
+                if (assignment is null)
+                {
+                    throw new InvalidOperationException("Assignment not found");
+                }
+
+                if (assignment.DueDate.Date < DateTime.UtcNow.Date)
+                {
+                    throw new InvalidOperationException("Cannot submit assignment. The due date has passed");
+                }
+
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can submit assignments");
+                }
+
+                var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, assignment.ClassId);
+                if (!isEnrolled)
+                {
+                    throw new InvalidOperationException("You are not enrolled in the class for this assignment");
+                }
+
+                var existingSubmission = await _submissionRepository.GetByAssignmentIdAndStudentIdAsync(assignmentId, studentId);
+                if (existingSubmission is not null)
+                {
+                    throw new InvalidOperationException("You have already submitted this assignment");
+                }
+
+                var (originalFileName, storedFileNameValue, fileUrl) = await _fileUploadService.SaveFileAsync(file, webRootPath);
+                storedFileName = storedFileNameValue;
+
+                Submission submission = new()
+                {
+                    AssignmentId = assignmentId,
+                    StudentId = studentId,
+                    SubmittedDate = DateTime.UtcNow,
+                    FileUrl = fileUrl,
+                    OriginalFileName = originalFileName,
+                    StoredFileName = storedFileName,
+                    Grade = null,
+                    GradedByTeacherId = null,
+                    Remarks = null,
+                    CreatedDate = DateTime.UtcNow
+                };
+
+                await _submissionRepository.AddAsync(submission);
+
+                var createdSubmission = await _submissionRepository.GetByIdAsync(submission.Id);
+
+                SubmissionDto submissionDto = new()
+                {
+                    Id = createdSubmission!.Id,
+                    AssignmentId = createdSubmission.AssignmentId,
+                    StudentId = createdSubmission.StudentId,
+                    StudentName = createdSubmission.Student?.Name,
+                    SubmittedDate = createdSubmission.SubmittedDate,
+                    FileUrl = createdSubmission.FileUrl,
+                    OriginalFileName = createdSubmission.OriginalFileName,
+                    StoredFileName = createdSubmission.StoredFileName,
+                    Grade = createdSubmission.Grade,
+                    GradedByTeacherId = createdSubmission.GradedByTeacherId,
+                    GradedByTeacherName = createdSubmission.GradedByTeacher?.Name,
+                    Remarks = createdSubmission.Remarks,
+                    CreatedDate = createdSubmission.CreatedDate
+                };
+
+                return submissionDto;
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(storedFileName))
+                {
+                    try
+                    {
+                        _fileUploadService.DeleteFile(storedFileName, webRootPath);
+                        _logger.LogWarning($"Deleted uploaded file {storedFileName} due to submission failure for assignment {assignmentId}, student {studentId}");
+                    }
+                    catch (Exception deleteEx)
+                    {
+                        _logger.LogError(deleteEx, $"Failed to delete uploaded file {storedFileName} after submission failure");
+                    }
+                }
+
+                _logger.LogError($"An exception occurred while submitting assignment {assignmentId} for student {studentId}. {ex.Message}", ex);
                 throw;
             }
         }

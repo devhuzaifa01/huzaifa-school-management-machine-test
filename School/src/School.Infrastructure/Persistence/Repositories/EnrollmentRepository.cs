@@ -23,8 +23,7 @@ namespace School.Infrastructure.Persistence.Repositories
 
         public async Task<bool> IsStudentEnrolledAsync(int studentId, int classId)
         {
-            return await _dbContext.StudentClasses
-                .AnyAsync(sc => sc.StudentId == studentId 
+            return await _dbContext.StudentClasses.AnyAsync(sc => sc.StudentId == studentId 
                     && sc.ClassId == classId 
                     && (sc.IsDeleted == null || sc.IsDeleted == false));
         }

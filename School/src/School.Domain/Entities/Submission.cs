@@ -17,6 +17,14 @@ namespace School.Domain.Entities
         [MaxLength(500, ErrorMessage = "FileUrl cannot exceed 500 characters")]
         public string? FileUrl { get; set; }
 
+        [Required(ErrorMessage = "Original file name is required")]
+        [MaxLength(255, ErrorMessage = "Original file name cannot exceed 255 characters")]
+        public string OriginalFileName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Stored file name is required")]
+        [MaxLength(255, ErrorMessage = "Stored file name cannot exceed 255 characters")]
+        public string StoredFileName { get; set; } = string.Empty;
+
         [Range(0, 100, ErrorMessage = "Grade must be between 0 and 100")]
         public decimal? Grade { get; set; }
 

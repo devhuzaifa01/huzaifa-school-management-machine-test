@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogConfiguration();
 
 builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddFileUploadConfiguration(builder.Configuration);
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddProjectDependencies(builder.Configuration);
 builder.Services.AddControllers();
@@ -22,6 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
