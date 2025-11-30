@@ -1,4 +1,4 @@
-﻿namespace School.Application.Requests.Teacher
+namespace School.Application.Requests.Submission
 {
     public class GradeSubmissionRequest
     {
@@ -6,3 +6,4 @@
         public string? Remarks { get; set; }
     }
 }
+

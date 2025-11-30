@@ -1,5 +1,5 @@
 using FluentValidation;
-using School.Application.Requests.Teacher;
+using School.Application.Requests.Class;
 
 namespace School.Application.Validators.Classes
 {

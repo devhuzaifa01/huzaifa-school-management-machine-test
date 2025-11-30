@@ -1,4 +1,4 @@
-namespace School.Application.Requests.Teacher
+namespace School.Application.Requests.Notification
 {
     public class CreateNotificationRequest
     {

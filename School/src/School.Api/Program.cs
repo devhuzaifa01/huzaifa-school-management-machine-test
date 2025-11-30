@@ -10,6 +10,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddFileUploadConfiguration(builder.Configuration);
 builder.Services.AddCacheConfiguration(builder.Configuration);
+builder.Services.AddEmailConfiguration(builder.Configuration);
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddProjectDependencies(builder.Configuration);
 builder.Services.AddFluentValidations();

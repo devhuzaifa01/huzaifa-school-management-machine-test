@@ -23,6 +23,7 @@ namespace School.Api.DependencyInjection
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<FileUploadService>();
 
             // Register Repositories

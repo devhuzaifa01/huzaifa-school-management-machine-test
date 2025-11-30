@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using School.Application.Common;
 using School.Application.Dtos;
-using School.Application.Requests.Teacher;
+using School.Application.Requests.Assignment;
+using School.Application.Requests.Submission;
 
 namespace School.Application.Contracts.Services
 {

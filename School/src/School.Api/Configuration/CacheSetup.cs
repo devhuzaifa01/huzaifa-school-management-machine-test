@@ -1,4 +1,4 @@
-using School.Application.Dtos;
+using School.Application.Dtos.Configuration;
 
 namespace School.Api.Configuration
 {

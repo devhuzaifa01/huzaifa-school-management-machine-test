@@ -1,4 +1,4 @@
-namespace School.Application.Dtos
+namespace School.Application.Dtos.Configuration
 {
     public class FileUploadSettings
     {

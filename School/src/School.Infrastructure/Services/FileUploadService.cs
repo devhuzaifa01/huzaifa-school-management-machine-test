@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using School.Application.Dtos;
+using School.Application.Dtos.Configuration;
 
 namespace School.Infrastructure.Services
 {

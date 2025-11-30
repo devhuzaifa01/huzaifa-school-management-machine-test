@@ -3,7 +3,7 @@ using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
-using School.Application.Requests.Teacher;
+using School.Application.Requests.Class;
 using School.Domain.Entities;
 using School.Domain.Enums;
 

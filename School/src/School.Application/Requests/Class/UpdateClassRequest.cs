@@ -1,4 +1,4 @@
-namespace School.Application.Requests.Teacher
+namespace School.Application.Requests.Class
 {
     public class UpdateClassRequest
     {

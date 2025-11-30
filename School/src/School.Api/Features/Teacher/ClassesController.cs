@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using School.Application.Contracts.Services;
-using School.Application.Requests.Teacher;
+using School.Application.Requests.Class;
 using System.Security.Claims;
 
 namespace School.Api.Features.Teacher

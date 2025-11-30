@@ -5,6 +5,7 @@ using School.Application.Common;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
+using School.Application.Dtos.Configuration;
 using School.Application.Requests.Department;
 using School.Domain.Entities;
 using School.Domain.Enums;

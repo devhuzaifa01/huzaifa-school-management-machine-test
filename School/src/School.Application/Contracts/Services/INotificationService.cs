@@ -1,5 +1,5 @@
 ﻿using School.Application.Dtos;
-using School.Application.Requests.Teacher;
+using School.Application.Requests.Notification;
 
 namespace School.Application.Contracts.Services
 {
