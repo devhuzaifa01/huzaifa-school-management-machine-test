@@ -1,4 +1,5 @@
-﻿using School.Application.Contracts.Persistence;
+﻿using School.Api.Filters;
+using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Infrastructure.Identity;
 using School.Infrastructure.Persistence.Repositories;
@@ -12,6 +13,7 @@ namespace School.Api.DependencyInjection
         {
             // Register Services
             services.AddScoped<JwtTokenService>();
+            services.AddScoped<ValidationFilter>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<ICourseService, CourseService>();
