@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using School.Application.Common;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -45,17 +46,17 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(request.ClassId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to create assignments for this class");
+                    throw new NotFoundException("Class not found or you do not have permission to create assignments for this class");
                 }
 
                 if (!classEntity.IsActive)
                 {
-                    throw new InvalidOperationException("Cannot create assignment for an inactive class");
+                    throw new BusinessException("Cannot create assignment for an inactive class");
                 }
 
                 if (request.DueDate.Date < DateTime.UtcNow.Date)
                 {
-                    throw new InvalidOperationException("Assignment due date cannot be in the past");
+                    throw new BusinessException("Assignment due date cannot be in the past");
                 }
 
                 Assignment assignment = new()
@@ -101,7 +102,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(classId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to view assignments for this class");
+                    throw new NotFoundException("Class not found or you do not have permission to view assignments for this class");
                 }
 
                 var assignments = await _assignmentRepository.GetByClassIdAndTeacherIdAsync(classId, teacherId);
@@ -135,24 +136,24 @@ namespace School.Infrastructure.Services
                 var assignment = await _assignmentRepository.GetByIdWithClassAsync(id);
                 if (assignment is null)
                 {
-                    throw new InvalidOperationException("Assignment not found");
+                    throw new NotFoundException("Assignment not found");
                 }
 
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view assignments");
+                    throw new UnauthorizedException("Only students can view assignments");
                 }
 
                 var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, assignment.ClassId);
                 if (!isEnrolled)
                 {
-                    throw new InvalidOperationException("You are not enrolled in the class for this assignment");
+                    throw new UnauthorizedException("You are not enrolled in the class for this assignment");
                 }
 
                 var submission = await _submissionRepository.GetByAssignmentIdAndStudentIdAsync(id, studentId);
@@ -190,35 +191,35 @@ namespace School.Infrastructure.Services
                 var assignment = await _assignmentRepository.GetByIdWithClassAsync(assignmentId);
                 if (assignment is null)
                 {
-                    throw new InvalidOperationException("Assignment not found");
+                    throw new NotFoundException("Assignment not found");
                 }
 
                 if (assignment.DueDate.Date < DateTime.UtcNow.Date)
                 {
-                    throw new InvalidOperationException("Cannot submit assignment. The due date has passed");
+                    throw new BusinessException("Cannot submit assignment. The due date has passed");
                 }
 
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can submit assignments");
+                    throw new UnauthorizedException("Only students can submit assignments");
                 }
 
                 var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, assignment.ClassId);
                 if (!isEnrolled)
                 {
-                    throw new InvalidOperationException("You are not enrolled in the class for this assignment");
+                    throw new UnauthorizedException("You are not enrolled in the class for this assignment");
                 }
 
                 var existingSubmission = await _submissionRepository.GetByAssignmentIdAndStudentIdAsync(assignmentId, studentId);
                 if (existingSubmission is not null)
                 {
-                    throw new InvalidOperationException("You have already submitted this assignment");
+                    throw new BusinessException("You have already submitted this assignment");
                 }
 
                 var (originalFileName, storedFileNameValue, fileUrl) = await _fileUploadService.SaveFileAsync(file, webRootPath);
@@ -288,38 +289,38 @@ namespace School.Infrastructure.Services
                 var submission = await _submissionRepository.GetByIdWithAssignmentAndClassAsync(submissionId);
                 if (submission is null)
                 {
-                    throw new InvalidOperationException("Submission not found");
+                    throw new NotFoundException("Submission not found");
                 }
 
                 if (submission.Assignment is null)
                 {
-                    throw new InvalidOperationException("Assignment not found for this submission");
+                    throw new NotFoundException("Assignment not found for this submission");
                 }
 
                 if (submission.Assignment.Class is null)
                 {
-                    throw new InvalidOperationException("Class not found for this assignment");
+                    throw new NotFoundException("Class not found for this assignment");
                 }
 
                 if (submission.Assignment.Class.TeacherId != teacherId)
                 {
-                    throw new InvalidOperationException("You can only grade submissions for assignments in your classes");
+                    throw new UnauthorizedException("You can only grade submissions for assignments in your classes");
                 }
 
                 if (submission.GradedByTeacherId.HasValue)
                 {
-                    throw new InvalidOperationException("This submission has already been graded");
+                    throw new BusinessException("This submission has already been graded");
                 }
 
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
-                    throw new InvalidOperationException("Teacher not found");
+                    throw new NotFoundException("Teacher not found");
                 }
 
                 if (teacher.Role != UserRole.Teacher.ToString())
                 {
-                    throw new InvalidOperationException("Only teachers can grade submissions");
+                    throw new UnauthorizedException("Only teachers can grade submissions");
                 }
 
                 submission.Grade = request.Grade;
@@ -364,23 +365,23 @@ namespace School.Infrastructure.Services
                 var submission = await _submissionRepository.GetByIdAsync(submissionId);
                 if (submission is null)
                 {
-                    throw new InvalidOperationException("Submission not found");
+                    throw new NotFoundException("Submission not found");
                 }
 
                 if (submission.StudentId != studentId)
                 {
-                    throw new InvalidOperationException("You can only view your own submissions");
+                    throw new UnauthorizedException("You can only view your own submissions");
                 }
 
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view submissions");
+                    throw new UnauthorizedException("Only students can view submissions");
                 }
 
                 SubmissionDto submissionDto = new()
@@ -416,12 +417,12 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view their submissions");
+                    throw new UnauthorizedException("Only students can view their submissions");
                 }
 
                 var submissions = await _submissionRepository.GetByStudentIdAsync(studentId);
@@ -459,12 +460,12 @@ namespace School.Infrastructure.Services
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
-                    throw new InvalidOperationException("Teacher not found");
+                    throw new NotFoundException("Teacher not found");
                 }
 
                 if (teacher.Role != UserRole.Teacher.ToString())
                 {
-                    throw new InvalidOperationException("Only teachers can view their assignments");
+                    throw new UnauthorizedException("Only teachers can view their assignments");
                 }
 
                 var (assignments, totalCount) = await _assignmentRepository.GetByTeacherIdPagedAsync(teacherId, parameters.PageNumber, parameters.PageSize);

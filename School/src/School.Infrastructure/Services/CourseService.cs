@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using School.Application.Common;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -39,13 +40,13 @@ namespace School.Infrastructure.Services
                 var existingCourse = await _courseRepository.GetByCodeAndDepartmentIdAsync(request.Code, request.DepartmentId);
                 if (existingCourse is not null)
                 {
-                    throw new InvalidOperationException("Course code must be unique per department");
+                    throw new BusinessException("Course code must be unique per department");
                 }
 
                 var department = await _departmentRepository.GetByIdAsync(request.DepartmentId);
                 if (department is null)
                 {
-                    throw new InvalidOperationException("Department not found");
+                    throw new NotFoundException("Department not found");
                 }
 
                 Course course = new()
@@ -93,7 +94,7 @@ namespace School.Infrastructure.Services
                 var course = await _courseRepository.GetByIdAsync(id);
                 if (course is null || course.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Course not found");
+                    throw new NotFoundException("Course not found");
                 }
 
                 CourseDto courseDto = new()
@@ -165,19 +166,19 @@ namespace School.Infrastructure.Services
                 var course = await _courseRepository.GetByIdAsync(request.Id);
                 if (course is null || course.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Course not found");
+                    throw new NotFoundException("Course not found");
                 }
 
                 var existingCourse = await _courseRepository.GetByCodeAndDepartmentIdAsync(request.Code, request.DepartmentId);
                 if (existingCourse is not null && existingCourse.Id != request.Id)
                 {
-                    throw new InvalidOperationException("Course code must be unique per department");
+                    throw new BusinessException("Course code must be unique per department");
                 }
 
                 var department = await _departmentRepository.GetByIdAsync(request.DepartmentId);
                 if (department is null)
                 {
-                    throw new InvalidOperationException("Department not found");
+                    throw new NotFoundException("Department not found");
                 }
 
                 course.Name = request.Name;
@@ -222,7 +223,7 @@ namespace School.Infrastructure.Services
                 var course = await _courseRepository.GetByIdAsync(id);
                 if (course is null || course.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Course not found");
+                    throw new NotFoundException("Course not found");
                 }
 
                 course.IsDeleted = true;

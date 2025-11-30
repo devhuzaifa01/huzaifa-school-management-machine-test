@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos.Auth;
@@ -27,11 +28,11 @@ namespace School.Infrastructure.Services
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
             if (user is null)
-                throw new UnauthorizedAccessException("Invalid email or password");
+                throw new UnauthorizedException("Invalid email or password");
 
             var isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
             if (!isPasswordValid)
-                throw new UnauthorizedAccessException("Invalid email or password");
+                throw new UnauthorizedException("Invalid email or password");
 
             var claims = _jwtTokenService.BuildAuthClaims(user);
             var token = _jwtTokenService.GenerateJwtToken(claims);
@@ -60,7 +61,7 @@ namespace School.Infrastructure.Services
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
             if (existingUser is not null)
             {
-                throw new InvalidOperationException("User with this email already exists");
+                throw new BusinessException("User with this email already exists");
             }
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
@@ -104,13 +105,13 @@ namespace School.Infrastructure.Services
         {
             if (string.IsNullOrWhiteSpace(request.RefreshToken) || !_refreshTokens.TryGetValue(request.RefreshToken, out var tokenInfo))
             {
-                throw new UnauthorizedAccessException("Invalid refresh token");
+                throw new UnauthorizedException("Invalid refresh token");
             }
 
             if (tokenInfo.ExpiresAt < DateTime.UtcNow)
             {
                 _refreshTokens.Remove(request.RefreshToken);
-                throw new UnauthorizedAccessException("Refresh token has expired");
+                throw new UnauthorizedException("Refresh token has expired");
             }
 
             var user = new User

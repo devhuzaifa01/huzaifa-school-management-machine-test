@@ -1,6 +1,7 @@
 using School.Api.Configuration;
 using School.Api.DependencyInjection;
 using School.Api.Filters;
+using School.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddFluentValidations();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<ApiExceptionFilter>();
 });
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddAuthPolicies();
@@ -31,6 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();

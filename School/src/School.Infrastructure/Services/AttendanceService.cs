@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -36,24 +37,24 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(request.ClassId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to mark attendance for this class");
+                    throw new NotFoundException("Class not found or you do not have permission to mark attendance for this class");
                 }
 
                 var student = await _userRepository.GetByIdAsync(request.StudentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("User is not a student");
+                    throw new UnauthorizedException("User is not a student");
                 }
 
                 var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(request.StudentId, request.ClassId);
                 if (!isEnrolled)
                 {
-                    throw new InvalidOperationException("Student is not enrolled in this class");
+                    throw new UnauthorizedException("Student is not enrolled in this class");
                 }
 
                 var existingAttendance = await _attendanceRepository.GetByClassIdStudentIdAndDateAsync(
@@ -61,7 +62,7 @@ namespace School.Infrastructure.Services
                 
                 if (existingAttendance is not null)
                 {
-                    throw new InvalidOperationException("Attendance for this student on this date already exists");
+                    throw new BusinessException("Attendance for this student on this date already exists");
                 }
 
                 Attendance attendance = new()
@@ -109,7 +110,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(classId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to view attendance for this class");
+                    throw new NotFoundException("Class not found or you do not have permission to view attendance for this class");
                 }
 
                 var attendances = await _attendanceRepository.GetByClassIdAsync(classId);
@@ -145,12 +146,12 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view their attendance");
+                    throw new UnauthorizedException("Only students can view their attendance");
                 }
 
                 var attendances = await _attendanceRepository.GetByStudentIdAsync(studentId);
@@ -186,18 +187,18 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view their attendance");
+                    throw new UnauthorizedException("Only students can view their attendance");
                 }
 
                 var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, classId);
                 if (!isEnrolled)
                 {
-                    throw new InvalidOperationException("You are not enrolled in this class");
+                    throw new UnauthorizedException("You are not enrolled in this class");
                 }
 
                 var attendances = await _attendanceRepository.GetByStudentIdAndClassIdAsync(studentId, classId);

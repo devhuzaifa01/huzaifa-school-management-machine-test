@@ -1,6 +1,1609 @@
-﻿namespace School.Api.OpenApi
-{
-    public class school_api
+﻿{
+  "info": {
+    "_postman_id": "32c9430a-cf5f-4017-8be3-9b24ac3cf911",
+    "name": "School",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
     {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Maths Teacher\",\r\n  \"email\": \"leenaStudent@huzaifatanveer.com\",\r\n  \"password\": \"P@ssw0rd\",\r\n  \"role\": \"Teacher\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}auth/register",
+              "host": [
+                "{{BaseURL}}auth"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"huzaifastudent@huzaifatanveer.com\",\r\n  \"password\": \"P@ssw0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}auth/login",
+              "host": [
+                "{{BaseURL}}auth"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "RefreshToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"refreshToken\": \"gk3W+Fd5dMfNe9AEYF1n0hHPngURBY16O2a1fqjIPHv9E3XrGTenFFlVquf9wzbx3DmNH6gn4q6aSfAb0VrZQg==\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}auth/refresh-token",
+              "host": [
+                "{{BaseURL}}auth"
+              ],
+              "path": [
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Departments",
+          "item": [
+            {
+              "name": "CreateDepartment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIzMTg1MzI5OC00NDVjLTQzMmMtYmQ1OS04NmRjMDhhY2NlZjgiLCJleHAiOjE3NjQzNzUyNDYsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.f48MEJr4ahYF8MRNU3JJZoyWG9CbGy_bwK8nd9P4JpM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Electric Transportation System\",\r\n  \"description\": \"ETS department of research and practical work.\",\r\n  \"headOfDepartmentId\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/departments",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "departments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateDepartment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIzMTg1MzI5OC00NDVjLTQzMmMtYmQ1OS04NmRjMDhhY2NlZjgiLCJleHAiOjE3NjQzNzUyNDYsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.f48MEJr4ahYF8MRNU3JJZoyWG9CbGy_bwK8nd9P4JpM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Physics II\",\r\n  \"description\": \"Department of practical Physics.\",\r\n  \"headOfDepartmentId\": 3,\r\n  \"id\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/departments",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "departments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteDepartment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI4OGViZGNlOS01ZGNiLTRjNGMtYjdmZS0zYTIwOTA0OTEzNWYiLCJleHAiOjE3NjQzNzExOTAsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.gJ21jSm88ca3yfIdj7GWrcRlY5K-wZfKegrcJ1LjWF0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/departments/1",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "departments",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Courses",
+          "item": [
+            {
+              "name": "CreateCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIzMTg1MzI5OC00NDVjLTQzMmMtYmQ1OS04NmRjMDhhY2NlZjgiLCJleHAiOjE3NjQzNzUyNDYsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.f48MEJr4ahYF8MRNU3JJZoyWG9CbGy_bwK8nd9P4JpM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Electronics I\",\r\n  \"code\": \"ELC-0A\",\r\n  \"description\": \"This is Electronics I course offered in Autumn.\",\r\n  \"departmentId\": 1,\r\n  \"credits\": 5\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/courses",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "courses"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIzMTg1MzI5OC00NDVjLTQzMmMtYmQ1OS04NmRjMDhhY2NlZjgiLCJleHAiOjE3NjQzNzUyNDYsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.f48MEJr4ahYF8MRNU3JJZoyWG9CbGy_bwK8nd9P4JpM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Electronics I\",\r\n  \"code\": \"ELC-0A\",\r\n  \"description\": \"This course teaches basics of Electronics.\",\r\n  \"departmentId\": 2,\r\n  \"credits\": 6\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/courses",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "courses"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIzMTg1MzI5OC00NDVjLTQzMmMtYmQ1OS04NmRjMDhhY2NlZjgiLCJleHAiOjE3NjQzNzUyNDYsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.f48MEJr4ahYF8MRNU3JJZoyWG9CbGy_bwK8nd9P4JpM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/courses/1",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "courses",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "CreateUser",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI0N2MxZDA0ZC04NWEwLTQ4MWEtOWIwNS0wYThlMjZkMTViNmEiLCJleHAiOjE3NjQ0NTY4MDEsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.Fm43mrJYnSDgNCG6w9ifpVq7IFXcjAECuUBe9-axm_k",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"James Student\",\r\n  \"email\": \"jamesstudent@huzaifatanveer.com\",\r\n  \"password\": \"P@ssw0rd\",\r\n  \"role\": \"Student\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/users",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetUserById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI1NDY2NjI3Ny00ZmY1LTRiOGYtYWIxZS04YmQ5ODliYTBjYjkiLCJleHAiOjE3NjQzODAxOTQsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.MPBQ1KGa1XZSkryT2umxieXKno4no3BFdG1mG-jfu4I",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/users/4",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllUsers",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI0ZDU4MmQ4Yy02ZjkyLTRhOWUtODBjMC0yNjNmYjY0Yjk0NzYiLCJleHAiOjE3NjQ0NDY4ODcsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.zCl_9QyRBi6Po_POxmnUYHRvOIc_w6e9MqIjN36_CtQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/users",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllUsersByRole",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI0ZDU4MmQ4Yy02ZjkyLTRhOWUtODBjMC0yNjNmYjY0Yjk0NzYiLCJleHAiOjE3NjQ0NDY4ODcsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.zCl_9QyRBi6Po_POxmnUYHRvOIc_w6e9MqIjN36_CtQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/users/role/teacher",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users",
+                    "role",
+                    "teacher"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateUser",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI1NDY2NjI3Ny00ZmY1LTRiOGYtYWIxZS04YmQ5ODliYTBjYjkiLCJleHAiOjE3NjQzODAxOTQsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.MPBQ1KGa1XZSkryT2umxieXKno4no3BFdG1mG-jfu4I",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 4,\r\n  \"name\": \"Huzaifa Student\",\r\n  \"role\": \"Student\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}admin/users",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteUser",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiI1NDY2NjI3Ny00ZmY1LTRiOGYtYWIxZS04YmQ5ODliYTBjYjkiLCJleHAiOjE3NjQzODAxOTQsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.MPBQ1KGa1XZSkryT2umxieXKno4no3BFdG1mG-jfu4I",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/users/4",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetPagedStudents",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIwODU0MGMxOC05MTkzLTQ1MzAtYmUyNy02YTczMTZkOTNkYWEiLCJleHAiOjE3NjQ0ODA5ODUsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.m6V39267iHGhONimVIEB30hBhebBuQ5W72VIC0RdqqQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/users/students/paged?PageNumber=2&PageSize=1",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "users",
+                    "students",
+                    "paged"
+                  ],
+                  "query": [
+                    {
+                      "key": "PageNumber",
+                      "value": "2"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Class",
+          "item": [
+            {
+              "name": "GetAllClasses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiJkZmRjYzE1Yy1iZTc2LTRiMTktODcyMi03OTI3MjVkYTVjNjciLCJleHAiOjE3NjQ0NDUzNDksImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.UtRnzsKAC6YQu5v45GqcmOufvOuCAwubkUHPm35Gabc",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/classes",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "classes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetClassById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiJkZmRjYzE1Yy1iZTc2LTRiMTktODcyMi03OTI3MjVkYTVjNjciLCJleHAiOjE3NjQ0NDUzNDksImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.UtRnzsKAC6YQu5v45GqcmOufvOuCAwubkUHPm35Gabc",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/classes/2",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "classes",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetPagedClasses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4gVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjIiLCJlbWFpbCI6ImFkbWludXNlckBodXphaWZhdGFudmVlci5jb20iLCJqdGkiOiIwODU0MGMxOC05MTkzLTQ1MzAtYmUyNy02YTczMTZkOTNkYWEiLCJleHAiOjE3NjQ0ODA5ODUsImlzcyI6IlNjaG9vbC5BcGkiLCJhdWQiOiJTY2hvb2wuQXBpVXNlcnMifQ.m6V39267iHGhONimVIEB30hBhebBuQ5W72VIC0RdqqQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}admin/classes/paged?PageNumber=2&PageSize=2",
+                  "host": [
+                    "{{BaseURL}}admin"
+                  ],
+                  "path": [
+                    "classes",
+                    "paged"
+                  ],
+                  "query": [
+                    {
+                      "key": "PageNumber",
+                      "value": "2"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Teacher",
+      "item": [
+        {
+          "name": "Class",
+          "item": [
+            {
+              "name": "CreateClass",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjA1ZmUwNjIyLWM0ZmUtNDU4Zi1iMTE0LWMzNjcyNDU3OTQ1ZCIsImV4cCI6MTc2NDQ0Mjk1NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.lKhE3hJWYbJzg4rQcF8SQMShLEbkxWzUpjXN_ipRQYU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Class Three\",\r\n  \"courseId\": 1,\r\n  \"semester\": \"string\",\r\n  \"startDate\": \"2025-11-29T17:22:51.667Z\",\r\n  \"endDate\": \"2026-11-28T17:22:51.667Z\",\r\n  \"isActive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetClassById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTWF0aHMgVGVhY2hlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Im1hdGhzVGVhY2hlckBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJUZWFjaGVyIiwic3ViIjoiNSIsImVtYWlsIjoibWF0aHNUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjMyYzFmZGM4LWZmNTMtNGZmZC1iNzUxLTk1YTQ1YWNkMTU3OSIsImV4cCI6MTc2NDQ0NDMzNywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.0XzVZVWrmxfdbCfrx-a16PcgzJOJBGaVT3xlOm6RpDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes/2",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllClasses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImI3NTk3NTEwLWM2NjgtNDU5Ni1iZjQ3LTRkMWI3NzU5N2I5OCIsImV4cCI6MTc2NDQ1NjMyNiwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.oz_PBryfR70kgzEZFkjpdmUpNDlFWQCW2NrPPiTSNHw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateClass",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjA1ZmUwNjIyLWM0ZmUtNDU4Zi1iMTE0LWMzNjcyNDU3OTQ1ZCIsImV4cCI6MTc2NDQ0Mjk1NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.lKhE3hJWYbJzg4rQcF8SQMShLEbkxWzUpjXN_ipRQYU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 3,\r\n  \"name\": \"Class Three\",\r\n  \"courseId\": 2,\r\n  \"semester\": \"Autumn\",\r\n  \"startDate\": \"2025-11-29T17:22:51.667Z\",\r\n  \"endDate\": \"2026-11-28T17:22:51.667Z\",\r\n  \"isActive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Deactivate",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjA1ZmUwNjIyLWM0ZmUtNDU4Zi1iMTE0LWMzNjcyNDU3OTQ1ZCIsImV4cCI6MTc2NDQ0Mjk1NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.lKhE3hJWYbJzg4rQcF8SQMShLEbkxWzUpjXN_ipRQYU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes/1/deactivate",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes",
+                    "1",
+                    "deactivate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Activate",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjA1ZmUwNjIyLWM0ZmUtNDU4Zi1iMTE0LWMzNjcyNDU3OTQ1ZCIsImV4cCI6MTc2NDQ0Mjk1NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.lKhE3hJWYbJzg4rQcF8SQMShLEbkxWzUpjXN_ipRQYU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes/1/activate",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes",
+                    "1",
+                    "activate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "EnrollStudent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjIwYmFiY2Y0LTY0NmYtNGVmNy04Y2RmLTU4NTA3Y2FiMzlmOSIsImV4cCI6MTc2NDQ3NDYzNCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.h2Up5N2D-E8a0Ko1NEs3jIWs-TbKvb953SH8xb5mE1o",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"studentId\": 4\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes/3/enroll",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes",
+                    "3",
+                    "enroll"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetEnrollments",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImI3NTk3NTEwLWM2NjgtNDU5Ni1iZjQ3LTRkMWI3NzU5N2I5OCIsImV4cCI6MTc2NDQ1NjMyNiwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.oz_PBryfR70kgzEZFkjpdmUpNDlFWQCW2NrPPiTSNHw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/classes/2/enrollments",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "classes",
+                    "2",
+                    "enrollments"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Attendance",
+          "item": [
+            {
+              "name": "MarkAttendance",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjgyMDk1MmY0LTEyM2YtNDY1ZS1hYWViLTkzMzczMDI4OWZlZiIsImV4cCI6MTc2NDQ1NzIxOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.dmUAZ_9-1fUo2rxF_G7s3nyayCvpErIg6hW-JYxRKYk",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"classId\": 2,\r\n  \"studentId\": 4,\r\n  \"date\": \"2025-11-29T21:59:46.143Z\",\r\n  \"status\": \"Late\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/attendances",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "attendances"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAttendanceHistory",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjgyMDk1MmY0LTEyM2YtNDY1ZS1hYWViLTkzMzczMDI4OWZlZiIsImV4cCI6MTc2NDQ1NzIxOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.dmUAZ_9-1fUo2rxF_G7s3nyayCvpErIg6hW-JYxRKYk",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/attendances/2",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "attendances",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Assignment",
+          "item": [
+            {
+              "name": "CreateAssignment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjgyMDk1MmY0LTEyM2YtNDY1ZS1hYWViLTkzMzczMDI4OWZlZiIsImV4cCI6MTc2NDQ1NzIxOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.dmUAZ_9-1fUo2rxF_G7s3nyayCvpErIg6hW-JYxRKYk",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"classId\": 2,\r\n  \"title\": \"Assignment # 1\",\r\n  \"description\": \"This is Physics Assignment for every student in Class Two.\",\r\n  \"dueDate\": \"2025-11-29T22:40:47.616Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/assignments",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "assignments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAssignmentByClassId",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImM2NWIwYjRhLWY2ZWQtNDM2OS05NDkzLWE3ODE2MTA3YmNlNCIsImV4cCI6MTc2NDQ3Mzc1NiwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.mUPJ0_8x-CGIG-PqkRUv9kd0ZXyZHJVYaRjLkNU56ok",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/assignments/2",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "assignments",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GradeSubmission",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6Ijg3OWFiM2Y3LTIzNjktNDg1OC04MmNjLWI2MDBiZWM0NDcxNCIsImV4cCI6MTc2NDQ2OTAyOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.3tXX8M4lW5A1imfVtlSliaDNSmXr1yqHqPuMY1UTwjw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"grade\": 85,\r\n  \"remarks\": \"Good Work\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/assignments/1/grade",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "assignments",
+                    "1",
+                    "grade"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetPagedAssignments",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjI4ZTUyZDI3LThkZDctNDU4OC05NGNlLTUxNzc1OGQwNDYzNyIsImV4cCI6MTc2NDQ4MTIyOCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.ydUvWu66UITjSnvqQs2FZZ7BGBP-isM5T2xeoz_CeyE",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/assignments/paged?PageNumber=1&PageSize=10",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "assignments",
+                    "paged"
+                  ],
+                  "query": [
+                    {
+                      "key": "PageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Notification",
+          "item": [
+            {
+              "name": "CreateNotification",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjY5NGNmZThjLTVjYzYtNGEyYi05YWY3LWNkMDk2Y2ZjY2MyMiIsImV4cCI6MTc2NDQ4MzY3NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.avJzLJ51POEisoVK5b0PWSgMFgd8ntOYXX6vvuk2YNM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"classId\": 2,\r\n  \"title\": \"Test Notification for classId 1\",\r\n  \"message\": \"Test Notification message for classId 1\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}teacher/notifications",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllNotifications",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUGh5c2ljcyBUZWFjaGVyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGh5c2ljc1RlYWNoZXJAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsInN1YiI6IjMiLCJlbWFpbCI6InBoeXNpY3NUZWFjaGVyQGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjY5NGNmZThjLTVjYzYtNGEyYi05YWY3LWNkMDk2Y2ZjY2MyMiIsImV4cCI6MTc2NDQ4MzY3NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.avJzLJ51POEisoVK5b0PWSgMFgd8ntOYXX6vvuk2YNM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}teacher/notifications",
+                  "host": [
+                    "{{BaseURL}}teacher"
+                  ],
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lookup",
+      "item": [
+        {
+          "name": "Course",
+          "item": [
+            {
+              "name": "GetCourseById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjFkNWNkZGU1LTcyZDQtNGM5YS04YjliLWQ2OTVlMjVkM2I4YyIsImV4cCI6MTc2NDQ3ODAzMywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.5AbpvQEgO9ALuSDwXuLUIulhMiAHV5vwV36BrFrEI20",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}lookup/courses/1",
+                  "host": [
+                    "{{BaseURL}}lookup"
+                  ],
+                  "path": [
+                    "courses",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllCourses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjFkNWNkZGU1LTcyZDQtNGM5YS04YjliLWQ2OTVlMjVkM2I4YyIsImV4cCI6MTc2NDQ3ODAzMywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.5AbpvQEgO9ALuSDwXuLUIulhMiAHV5vwV36BrFrEI20",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}lookup/courses",
+                  "host": [
+                    "{{BaseURL}}lookup"
+                  ],
+                  "path": [
+                    "courses"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Department",
+          "item": [
+            {
+              "name": "GetAllDepartments",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjFkNWNkZGU1LTcyZDQtNGM5YS04YjliLWQ2OTVlMjVkM2I4YyIsImV4cCI6MTc2NDQ3ODAzMywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.5AbpvQEgO9ALuSDwXuLUIulhMiAHV5vwV36BrFrEI20",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}lookup/departments",
+                  "host": [
+                    "{{BaseURL}}lookup"
+                  ],
+                  "path": [
+                    "departments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetDepartmentById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjFkNWNkZGU1LTcyZDQtNGM5YS04YjliLWQ2OTVlMjVkM2I4YyIsImV4cCI6MTc2NDQ3ODAzMywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.5AbpvQEgO9ALuSDwXuLUIulhMiAHV5vwV36BrFrEI20",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}lookup/departments/1",
+                  "host": [
+                    "{{BaseURL}}lookup"
+                  ],
+                  "path": [
+                    "departments",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "item": [
+        {
+          "name": "Assignment",
+          "item": [
+            {
+              "name": "GetAssignmentById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjcwMjVjMDg2LWJmNzQtNDBiYS04MzFhLTVjZDZjYTEyMWI0ZCIsImV4cCI6MTc2NDQ2OTA3NCwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.WVXFLnCfGgVazNk1KbLbPuEEJBOYfNWGSVOQqueN3x8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/assignments/1",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "assignments",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SubmitAssignment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSmFtZXMgU3R1ZGVudCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImphbWVzc3R1ZGVudEBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50Iiwic3ViIjoiNiIsImVtYWlsIjoiamFtZXNzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImM1NjJjMzA1LWY4NWEtNDczMi1iMTkzLTI3OWRlNGI1ZWQyYSIsImV4cCI6MTc2NDQ2NTkyNSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.nhKYWc31klnySxs6cbn6kbxVJamupwnke6ZzQti2QCc",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": "/C:/Users/DELL/Downloads/MACHINE TEST - L1 (1).pdf"
+                    }
+                  ],
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BaseURL}}student/assignments/1/submit",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "assignments",
+                    "1",
+                    "submit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetSubmissionsById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSmFtZXMgU3R1ZGVudCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImphbWVzc3R1ZGVudEBodXphaWZhdGFudmVlci5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50Iiwic3ViIjoiNiIsImVtYWlsIjoiamFtZXNzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImM0MmVhODRjLWJjZTEtNDdkNy04NDgwLTE3N2M4NjcyN2EyZiIsImV4cCI6MTc2NDQ2OTU0MiwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.5odmfHuHZJzVRdIvbW8MWAoXNf_Hrp8OqBTN0vk0UVQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/assignments/submissions/2",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "assignments",
+                    "submissions",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetGrades",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/assignments/grades",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "assignments",
+                    "grades"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Class",
+          "item": [
+            {
+              "name": "GetEnrolledClasses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6ImNmMWQ3ZjE2LTM4NDYtNDYwOS04NGM4LWFlZTg2ODBiYzA1NSIsImV4cCI6MTc2NDQ3NDU2NywiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.w8Bmt6vNSA74T0pkdzgJyhs9UQCuP78tQ2EU49QQuyA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/classes",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "classes"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Attendance",
+          "item": [
+            {
+              "name": "GetAttendance",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjIzMmM3MmQ4LTYwMDEtNDAxOS04ODExLTYyOTYyYWQzNjViMCIsImV4cCI6MTc2NDQ3NTY3NSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.M44YKeBJCslS5DG2WIbS_EqbUbYJwO8AMhRgMgcQ89o",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/attendances",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "attendances"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAttendanceByClassId",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjIzMmM3MmQ4LTYwMDEtNDAxOS04ODExLTYyOTYyYWQzNjViMCIsImV4cCI6MTc2NDQ3NTY3NSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.M44YKeBJCslS5DG2WIbS_EqbUbYJwO8AMhRgMgcQ89o",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/attendances/2",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "attendances",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Notification",
+          "item": [
+            {
+              "name": "GetAllNotifications",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjNkNDI5ODhhLWNhZTUtNDg1Zi1hMzYxLWQ4ODljMTc3NGYzYSIsImV4cCI6MTc2NDQ4Mzk0NSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.zPyYXms0KcHdQ2WP-83hwuYEIyvA49GFW79HtFoyldk",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/notifications",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllNotificationById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSHV6YWlmYSBTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiaHV6YWlmYXN0dWRlbnRAaHV6YWlmYXRhbnZlZXIuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3R1ZGVudCIsInN1YiI6IjQiLCJlbWFpbCI6Imh1emFpZmFzdHVkZW50QGh1emFpZmF0YW52ZWVyLmNvbSIsImp0aSI6IjNkNDI5ODhhLWNhZTUtNDg1Zi1hMzYxLWQ4ODljMTc3NGYzYSIsImV4cCI6MTc2NDQ4Mzk0NSwiaXNzIjoiU2Nob29sLkFwaSIsImF1ZCI6IlNjaG9vbC5BcGlVc2VycyJ9.zPyYXms0KcHdQ2WP-83hwuYEIyvA49GFW79HtFoyldk",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}student/notifications/4",
+                  "host": [
+                    "{{BaseURL}}student"
+                  ],
+                  "path": [
+                    "notifications",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
     }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BaseURL",
+      "value": "https://localhost:44391/api/"
+    }
+  ]
 }

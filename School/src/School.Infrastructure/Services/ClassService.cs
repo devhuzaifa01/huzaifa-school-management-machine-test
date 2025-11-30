@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using School.Application.Common;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -34,23 +35,23 @@ namespace School.Infrastructure.Services
                 var course = await _courseRepository.GetByIdAsync(request.CourseId);
                 if (course is null)
                 {
-                    throw new InvalidOperationException("Course not found");
+                    throw new NotFoundException("Course not found");
                 }
 
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
-                    throw new InvalidOperationException("Teacher not found");
+                    throw new NotFoundException("Teacher not found");
                 }
 
                 if (teacher.Role != UserRole.Teacher.ToString())
                 {
-                    throw new InvalidOperationException("Only teachers can be assigned to a class");
+                    throw new UnauthorizedException("Only teachers can be assigned to a class");
                 }
 
                 if (request.StartDate >= request.EndDate)
                 {
-                    throw new InvalidOperationException("StartDate must be before EndDate");
+                    throw new BusinessException("StartDate must be before EndDate");
                 }
 
                 Class classEntity = new()
@@ -103,7 +104,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(id, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found");
+                    throw new NotFoundException("Class not found");
                 }
 
                 ClassDto classDto = new()
@@ -173,34 +174,34 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAsync(request.Id);
                 if (classEntity is null || classEntity.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Class not found");
+                    throw new NotFoundException("Class not found");
                 }
 
                 if (classEntity.TeacherId != teacherId)
                 {
-                    throw new UnauthorizedAccessException("You can only update your own classes");
+                    throw new UnauthorizedException("You can only update your own classes");
                 }
 
                 var course = await _courseRepository.GetByIdAsync(request.CourseId);
                 if (course is null)
                 {
-                    throw new InvalidOperationException("Course not found");
+                    throw new NotFoundException("Course not found");
                 }
 
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
-                    throw new InvalidOperationException("Teacher not found");
+                    throw new NotFoundException("Teacher not found");
                 }
 
                 if (teacher.Role != UserRole.Teacher.ToString())
                 {
-                    throw new InvalidOperationException("Only teachers can update classes");
+                    throw new UnauthorizedException("Only teachers can update classes");
                 }
 
                 if (request.StartDate >= request.EndDate)
                 {
-                    throw new InvalidOperationException("StartDate must be before EndDate");
+                    throw new BusinessException("StartDate must be before EndDate");
                 }
 
                 classEntity.Name = request.Name;
@@ -250,7 +251,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAsync(id);
                 if (classEntity is null || classEntity.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Class not found");
+                    throw new NotFoundException("Class not found");
                 }
 
                 classEntity.IsActive = false;
@@ -272,7 +273,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAsync(id);
                 if (classEntity is null || classEntity.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Class not found");
+                    throw new NotFoundException("Class not found");
                 }
 
                 classEntity.IsActive = true;
@@ -294,7 +295,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAsync(id);
                 if (classEntity is null || classEntity.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Class not found");
+                    throw new NotFoundException("Class not found");
                 }
 
                 ClassDto classDto = new()

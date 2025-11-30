@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -33,29 +34,29 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(classId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to enroll students in this class");
+                    throw new NotFoundException("Class not found or you do not have permission to enroll students in this class");
                 }
 
                 if (!classEntity.IsActive)
                 {
-                    throw new InvalidOperationException("Cannot enroll students in a deactivated class");
+                    throw new BusinessException("Cannot enroll students in a deactivated class");
                 }
 
                 var student = await _userRepository.GetByIdAsync(request.StudentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can be enrolled in a class");
+                    throw new UnauthorizedException("Only students can be enrolled in a class");
                 }
 
                 var existingEnrollment = await _enrollmentRepository.GetByStudentIdAndClassIdAsync(request.StudentId, classId);
                 if (existingEnrollment is not null)
                 {
-                    throw new InvalidOperationException("Student is already enrolled in this class");
+                    throw new BusinessException("Student is already enrolled in this class");
                 }
 
                 StudentClass studentClass = new()
@@ -99,7 +100,7 @@ namespace School.Infrastructure.Services
                 var classEntity = await _classRepository.GetByIdAndTeacherIdAsync(classId, teacherId);
                 if (classEntity is null)
                 {
-                    throw new InvalidOperationException("Class not found or you do not have permission to view enrollments for this class");
+                    throw new NotFoundException("Class not found or you do not have permission to view enrollments for this class");
                 }
 
                 var enrollments = await _enrollmentRepository.GetByClassIdAsync(classId);
@@ -133,12 +134,12 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role != UserRole.Student.ToString())
                 {
-                    throw new InvalidOperationException("Only students can view their enrolled classes");
+                    throw new UnauthorizedException("Only students can view their enrolled classes");
                 }
 
                 var enrollments = await _enrollmentRepository.GetByStudentIdAsync(studentId);

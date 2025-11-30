@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using School.Application.Common;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -27,7 +28,7 @@ namespace School.Infrastructure.Services
                 var existingUser = await _userRepository.GetByEmailAsync(request.Email);
                 if (existingUser is not null)
                 {
-                    throw new InvalidOperationException("User with this email already exists");
+                    throw new BusinessException("User with this email already exists");
                 }
 
                 var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
@@ -71,7 +72,7 @@ namespace School.Infrastructure.Services
                 var user = await _userRepository.GetByIdAsync(id);
                 if (user is null || user.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("User not found");
+                    throw new NotFoundException("User not found");
                 }
 
                 UserDto userDto = new()
@@ -100,7 +101,7 @@ namespace School.Infrastructure.Services
                 var user = await _userRepository.GetByIdAsync(request.Id);
                 if (user is null || user.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("User not found");
+                    throw new NotFoundException("User not found");
                 }
 
                 user.Name = request.Name;
@@ -137,7 +138,7 @@ namespace School.Infrastructure.Services
                 var user = await _userRepository.GetByIdAsync(id);
                 if (user is null || user.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("User not found");
+                    throw new NotFoundException("User not found");
                 }
 
                 user.IsDeleted = true;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -36,7 +37,7 @@ namespace School.Infrastructure.Services
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
-                    throw new InvalidOperationException("Teacher not found");
+                    throw new NotFoundException("Teacher not found");
                 }
 
                 List<int> studentIds = new();
@@ -48,7 +49,7 @@ namespace School.Infrastructure.Services
                     var classEntity = await _classRepository.GetByIdAsync(request.ClassId.Value);
                     if (classEntity is null)
                     {
-                        throw new InvalidOperationException("Class not found");
+                        throw new NotFoundException("Class not found");
                     }
 
                     var enrollments = await _enrollmentRepository.GetByClassIdAsync(request.ClassId.Value);
@@ -56,7 +57,7 @@ namespace School.Infrastructure.Services
 
                     if (studentIds.Count == 0)
                     {
-                        throw new InvalidOperationException("No students enrolled in this class");
+                        throw new BusinessException("No students enrolled in this class");
                     }
                 }
                 // Case 2: If StudentIds list is provided
@@ -73,7 +74,7 @@ namespace School.Infrastructure.Services
                 }
                 else
                 {
-                    throw new InvalidOperationException("Invalid notification request. Provide either ClassId, StudentIds, or RecipientId");
+                    throw new BusinessException("Invalid notification request. Provide either ClassId, StudentIds, or RecipientId");
                 }
 
                 foreach (var studentId in studentIds)
@@ -81,12 +82,12 @@ namespace School.Infrastructure.Services
                     var student = await _userRepository.GetByIdAsync(studentId);
                     if (student is null)
                     {
-                        throw new InvalidOperationException($"Student with ID {studentId} not found");
+                        throw new NotFoundException($"Student with ID {studentId} not found");
                     }
 
                     if (student.Role.ToLower() != "student")
                     {
-                        throw new InvalidOperationException($"User with ID {studentId} is not a student");
+                        throw new UnauthorizedException($"User with ID {studentId} is not a student");
                     }
                 }
 
@@ -146,12 +147,12 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role.ToLower() != "student")
                 {
-                    throw new InvalidOperationException("Only students can view notifications");
+                    throw new UnauthorizedException("Only students can view notifications");
                 }
 
                 var notifications = await _notificationRepository.GetByStudentIdAsync(studentId);
@@ -186,23 +187,23 @@ namespace School.Infrastructure.Services
                 var student = await _userRepository.GetByIdAsync(studentId);
                 if (student is null)
                 {
-                    throw new InvalidOperationException("Student not found");
+                    throw new NotFoundException("Student not found");
                 }
 
                 if (student.Role.ToLower() != "student")
                 {
-                    throw new InvalidOperationException("Only students can read notifications");
+                    throw new UnauthorizedException("Only students can read notifications");
                 }
 
                 var notification = await _notificationRepository.GetByIdAsync(id);
                 if (notification is null)
                 {
-                    throw new InvalidOperationException("Notification not found");
+                    throw new NotFoundException("Notification not found");
                 }
 
                 if (notification.RecipientId != studentId)
                 {
-                    throw new InvalidOperationException("You do not have permission to read this notification");
+                    throw new UnauthorizedException("You do not have permission to read this notification");
                 }
 
                 notification.IsRead = true;

@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using School.Application.Common;
+using School.Application.Common.Errors;
 using School.Application.Contracts.Persistence;
 using School.Application.Contracts.Services;
 using School.Application.Dtos;
@@ -40,7 +41,7 @@ namespace School.Infrastructure.Services
                 var existingDepartment = await _departmentRepository.GetByNameAsync(request.Name);
                 if (existingDepartment is not null)
                 {
-                    throw new InvalidOperationException("Department name must be unique");
+                    throw new BusinessException("Department name must be unique");
                 }
 
                 if (request.HeadOfDepartmentId.HasValue)
@@ -48,12 +49,12 @@ namespace School.Infrastructure.Services
                     var teacher = await _userRepository.GetByIdAsync(request.HeadOfDepartmentId.Value);
                     if (teacher is null)
                     {
-                        throw new InvalidOperationException("Head of Department not found");
+                        throw new NotFoundException("Head of Department not found");
                     }
 
                     if (teacher.Role != UserRole.Teacher.ToString())
                     {
-                        throw new InvalidOperationException("Only teachers can be assigned as Head of Department");
+                        throw new UnauthorizedException("Only teachers can be assigned as Head of Department");
                     }
                 }
 
@@ -98,7 +99,7 @@ namespace School.Infrastructure.Services
                 var department = await _departmentRepository.GetByIdAsync(id);
                 if (department is null || department.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Department not found");
+                    throw new NotFoundException("Department not found");
                 }
 
                 DepartmentDto departmentDto = new()
@@ -128,13 +129,13 @@ namespace School.Infrastructure.Services
                 var department = await _departmentRepository.GetByIdAsync(request.Id);
                 if (department is null || department.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Department not found");
+                    throw new NotFoundException("Department not found");
                 }
 
                 var existingDepartment = await _departmentRepository.GetByNameAsync(request.Name);
                 if (existingDepartment is not null && existingDepartment.Id != request.Id)
                 {
-                    throw new InvalidOperationException("Department name must be unique");
+                    throw new BusinessException("Department name must be unique");
                 }
 
                 if (request.HeadOfDepartmentId.HasValue)
@@ -142,12 +143,12 @@ namespace School.Infrastructure.Services
                     var teacher = await _userRepository.GetByIdAsync(request.HeadOfDepartmentId.Value);
                     if (teacher is null)
                     {
-                        throw new InvalidOperationException("Head of Department not found");
+                        throw new NotFoundException("Head of Department not found");
                     }
 
                     if (teacher.Role != UserRole.Teacher.ToString())
                     {
-                        throw new InvalidOperationException("Only teachers can be assigned as Head of Department");
+                        throw new UnauthorizedException("Only teachers can be assigned as Head of Department");
                     }
                 }
 
@@ -189,7 +190,7 @@ namespace School.Infrastructure.Services
                 var department = await _departmentRepository.GetByIdAsync(id);
                 if (department is null || department.IsDeleted == true)
                 {
-                    throw new InvalidOperationException("Department not found");
+                    throw new NotFoundException("Department not found");
                 }
 
                 department.IsDeleted = true;
