@@ -63,5 +63,18 @@ namespace School.Api.Features.Student
             var result = await _assignmentService.GetSubmissionByIdForStudentAsync(id, studentId);
             return Ok(result);
         }
+
+        [HttpGet("grades")]
+        public async Task<IActionResult> GetGrades()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out int studentId))
+                return Unauthorized("Invalid user information");
+
+            var result = await _assignmentService.GetSubmissionsByStudentIdAsync(studentId);
+
+            return Ok(result);
+        }
     }
 }

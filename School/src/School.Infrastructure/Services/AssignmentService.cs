@@ -406,5 +406,48 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<List<SubmissionDto>> GetSubmissionsByStudentIdAsync(int studentId)
+        {
+            try
+            {
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view their submissions");
+                }
+
+                var submissions = await _submissionRepository.GetByStudentIdAsync(studentId);
+
+                List<SubmissionDto> submissionDtos = submissions.Select(submission => new SubmissionDto
+                {
+                    Id = submission.Id,
+                    AssignmentId = submission.AssignmentId,
+                    StudentId = submission.StudentId,
+                    StudentName = submission.Student?.Name,
+                    SubmittedDate = submission.SubmittedDate,
+                    FileUrl = submission.FileUrl,
+                    OriginalFileName = submission.OriginalFileName,
+                    StoredFileName = submission.StoredFileName,
+                    Grade = submission.Grade,
+                    GradedByTeacherId = submission.GradedByTeacherId,
+                    GradedByTeacherName = submission.GradedByTeacher?.Name,
+                    Remarks = submission.Remarks,
+                    CreatedDate = submission.CreatedDate
+                }).ToList();
+
+                return submissionDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while retrieving submissions for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

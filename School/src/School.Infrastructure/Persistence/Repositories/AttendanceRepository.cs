@@ -44,6 +44,34 @@ namespace School.Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Attendance>> GetByStudentIdAsync(int studentId)
+        {
+            return await _dbContext.Attendances
+                .Include(a => a.Class)
+                .Include(a => a.Student)
+                .Include(a => a.MarkedByTeacher)
+                .Where(a => a.StudentId == studentId 
+                    && (a.IsDeleted == null || a.IsDeleted == false)
+                    && (a.Class == null || (a.Class.IsDeleted == null || a.Class.IsDeleted == false)))
+                .OrderByDescending(a => a.Date)
+                .ThenBy(a => a.Class!.Name)
+                .ToListAsync();
+        }
+
+        public async Task<List<Attendance>> GetByStudentIdAndClassIdAsync(int studentId, int classId)
+        {
+            return await _dbContext.Attendances
+                .Include(a => a.Class)
+                .Include(a => a.Student)
+                .Include(a => a.MarkedByTeacher)
+                .Where(a => a.StudentId == studentId 
+                    && a.ClassId == classId
+                    && (a.IsDeleted == null || a.IsDeleted == false)
+                    && (a.Class == null || (a.Class.IsDeleted == null || a.Class.IsDeleted == false)))
+                .OrderByDescending(a => a.Date)
+                .ToListAsync();
+        }
+
         public async Task<Attendance> AddAsync(Attendance attendance)
         {
             _dbContext.Attendances.Add(attendance);

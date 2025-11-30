@@ -137,5 +137,93 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<List<AttendanceDto>> GetAttendanceByStudentIdAsync(int studentId)
+        {
+            try
+            {
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view their attendance");
+                }
+
+                var attendances = await _attendanceRepository.GetByStudentIdAsync(studentId);
+
+                List<AttendanceDto> attendanceDtos = attendances.Select(attendance => new AttendanceDto
+                {
+                    Id = attendance.Id,
+                    ClassId = attendance.ClassId,
+                    ClassName = attendance.Class?.Name,
+                    StudentId = attendance.StudentId,
+                    StudentName = attendance.Student?.Name,
+                    StudentEmail = attendance.Student?.Email,
+                    Date = attendance.Date,
+                    Status = attendance.Status,
+                    MarkedByTeacherId = attendance.MarkedByTeacherId,
+                    MarkedByTeacherName = attendance.MarkedByTeacher?.Name,
+                    CreatedDate = attendance.CreatedDate
+                }).ToList();
+
+                return attendanceDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching attendance for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        public async Task<List<AttendanceDto>> GetAttendanceByStudentIdAndClassIdAsync(int studentId, int classId)
+        {
+            try
+            {
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view their attendance");
+                }
+
+                var isEnrolled = await _enrollmentRepository.IsStudentEnrolledAsync(studentId, classId);
+                if (!isEnrolled)
+                {
+                    throw new InvalidOperationException("You are not enrolled in this class");
+                }
+
+                var attendances = await _attendanceRepository.GetByStudentIdAndClassIdAsync(studentId, classId);
+
+                List<AttendanceDto> attendanceDtos = attendances.Select(attendance => new AttendanceDto
+                {
+                    Id = attendance.Id,
+                    ClassId = attendance.ClassId,
+                    ClassName = attendance.Class?.Name,
+                    StudentId = attendance.StudentId,
+                    StudentName = attendance.Student?.Name,
+                    StudentEmail = attendance.Student?.Email,
+                    Date = attendance.Date,
+                    Status = attendance.Status,
+                    MarkedByTeacherId = attendance.MarkedByTeacherId,
+                    MarkedByTeacherName = attendance.MarkedByTeacher?.Name,
+                    CreatedDate = attendance.CreatedDate
+                }).ToList();
+
+                return attendanceDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching attendance for student {studentId} in class {classId}. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

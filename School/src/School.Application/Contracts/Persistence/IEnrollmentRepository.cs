@@ -8,6 +8,7 @@ namespace School.Application.Contracts.Persistence
         Task<bool> IsStudentEnrolledAsync(int studentId, int classId);
         Task<StudentClass?> GetByIdAsync(int id);
         Task<List<StudentClass>> GetByClassIdAsync(int classId);
+        Task<List<StudentClass>> GetByStudentIdAsync(int studentId);
         Task<StudentClass> AddAsync(StudentClass studentClass);
     }
 }

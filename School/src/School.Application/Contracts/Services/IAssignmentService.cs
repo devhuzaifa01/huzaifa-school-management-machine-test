@@ -12,5 +12,6 @@ namespace School.Application.Contracts.Services
         Task<SubmissionDto> SubmitAssignmentAsync(int assignmentId, IFormFile file, int studentId, string webRootPath);
         Task<SubmissionDto> GradeSubmissionAsync(int submissionId, GradeSubmissionRequest request, int teacherId);
         Task<SubmissionDto> GetSubmissionByIdForStudentAsync(int submissionId, int studentId);
+        Task<List<SubmissionDto>> GetSubmissionsByStudentIdAsync(int studentId);
     }
 }

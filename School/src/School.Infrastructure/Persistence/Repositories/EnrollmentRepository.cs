@@ -46,6 +46,22 @@ namespace School.Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<StudentClass>> GetByStudentIdAsync(int studentId)
+        {
+            return await _dbContext.StudentClasses
+                .Include(sc => sc.Class)
+                    .ThenInclude(c => c!.Course)
+                .Include(sc => sc.Class)
+                    .ThenInclude(c => c!.Teacher)
+                .Include(sc => sc.Student)
+                .Where(sc => sc.StudentId == studentId 
+                    && (sc.IsDeleted == null || sc.IsDeleted == false)
+                    && (sc.Class == null || (sc.Class.IsDeleted == null || sc.Class.IsDeleted == false))
+                    && (sc.Class == null || sc.Class.IsActive))
+                .OrderByDescending(sc => sc.EnrollmentDate)
+                .ToListAsync();
+        }
+
         public async Task<StudentClass> AddAsync(StudentClass studentClass)
         {
             _dbContext.StudentClasses.Add(studentClass);

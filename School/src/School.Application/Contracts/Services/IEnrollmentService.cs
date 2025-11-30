@@ -7,5 +7,6 @@ namespace School.Application.Contracts.Services
     {
         Task<StudentClassDto> EnrollStudentAsync(int classId, EnrollStudentRequest request, int teacherId);
         Task<List<StudentClassDto>> GetEnrollmentsByClassIdAsync(int classId, int teacherId);
+        Task<List<StudentEnrolledClassDto>> GetEnrolledClassesByStudentIdAsync(int studentId);
     }
 }

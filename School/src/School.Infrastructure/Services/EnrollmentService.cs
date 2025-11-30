@@ -125,5 +125,51 @@ namespace School.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<List<StudentEnrolledClassDto>> GetEnrolledClassesByStudentIdAsync(int studentId)
+        {
+            try
+            {
+                var student = await _userRepository.GetByIdAsync(studentId);
+                if (student is null)
+                {
+                    throw new InvalidOperationException("Student not found");
+                }
+
+                if (student.Role != UserRole.Student.ToString())
+                {
+                    throw new InvalidOperationException("Only students can view their enrolled classes");
+                }
+
+                var enrollments = await _enrollmentRepository.GetByStudentIdAsync(studentId);
+
+                List<StudentEnrolledClassDto> enrolledClassDtos = enrollments.Select(enrollment => new StudentEnrolledClassDto
+                {
+                    EnrollmentId = enrollment.Id,
+                    EnrollmentDate = enrollment.EnrollmentDate,
+                    EnrollmentCreatedDate = enrollment.CreatedDate,
+                    EnrollmentUpdatedDate = enrollment.UpdatedDate,
+                    ClassId = enrollment.Class!.Id,
+                    ClassName = enrollment.Class.Name,
+                    Semester = enrollment.Class.Semester,
+                    StartDate = enrollment.Class.StartDate,
+                    EndDate = enrollment.Class.EndDate,
+                    IsActive = enrollment.Class.IsActive,
+                    CourseId = enrollment.Class.Course!.Id,
+                    CourseName = enrollment.Class.Course.Name,
+                    CourseCode = enrollment.Class.Course.Code,
+                    TeacherId = enrollment.Class.Teacher!.Id,
+                    TeacherName = enrollment.Class.Teacher.Name,
+                    TeacherEmail = enrollment.Class.Teacher.Email
+                }).ToList();
+
+                return enrolledClassDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An exception occurred while fetching enrolled classes for student {studentId}. {ex.Message}", ex);
+                throw;
+            }
+        }
     }
 }

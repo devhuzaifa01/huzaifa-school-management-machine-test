@@ -200,6 +200,7 @@ namespace School.Infrastructure.Services
                 }
 
                 course.IsDeleted = true;
+                course.IsActive = false;
                 course.UpdatedDate = DateTime.UtcNow;
                 await _courseRepository.UpdateAsync(course);
             }

@@ -23,6 +23,8 @@ namespace School.Domain.Entities
         [Range(1, 10, ErrorMessage = "Credits must be between 1 and 10")]
         public int Credits { get; set; }
 
+        public bool? IsActive { get; set; } = true;
+
         public Department? Department { get; set; }
     }
 }
