@@ -33,7 +33,7 @@ namespace School.Api.Features.Student
         }
 
         [HttpPost("{id}/submit")]
-        public async Task<IActionResult> Submit(int id, [FromForm] IFormFile file)
+        public async Task<IActionResult> Submit(int id, IFormFile file)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int studentId))
