@@ -1,12 +1,15 @@
-﻿using FluentValidation;
+using FluentValidation;
 using School.Application.Requests.Teacher;
 
 namespace School.Application.Validators.Classes
 {
-    public class CreateClassRequestValidator : AbstractValidator<CreateClassRequest>
+    public class UpdateClassRequestValidator : AbstractValidator<UpdateClassRequest>
     {
-        public CreateClassRequestValidator()
+        public UpdateClassRequestValidator()
         {
+            RuleFor(x => x.Id)
+                .GreaterThan(0).WithMessage("Id is required");
+
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required")
                 .MaximumLength(100).WithMessage("Name cannot exceed 100 characters");
@@ -26,3 +29,4 @@ namespace School.Application.Validators.Classes
         }
     }
 }
+

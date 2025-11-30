@@ -8,10 +8,6 @@ namespace School.Api.Features.Student
     public class ClassesController : ControllerBase
     {
 
-        [HttpGet("TestTeacher")]
-        public async Task<IActionResult> TestTeacher()
-        {
-            return Ok();
-        }
+        
     }
 }
