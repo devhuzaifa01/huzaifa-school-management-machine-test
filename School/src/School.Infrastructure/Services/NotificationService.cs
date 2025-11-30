@@ -13,77 +13,99 @@ namespace School.Infrastructure.Services
         private readonly ILogger<NotificationService> _logger;
         private readonly INotificationRepository _notificationRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IClassRepository _classRepository;
+        private readonly IEnrollmentRepository _enrollmentRepository;
 
         public NotificationService(ILogger<NotificationService> logger,
             INotificationRepository notificationRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IClassRepository classRepository,
+            IEnrollmentRepository enrollmentRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _notificationRepository = notificationRepository ?? throw new ArgumentNullException(nameof(notificationRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _classRepository = classRepository ?? throw new ArgumentNullException(nameof(classRepository));
+            _enrollmentRepository = enrollmentRepository ?? throw new ArgumentNullException(nameof(enrollmentRepository));
         }
 
-        public async Task<NotificationDto> CreateAsync(CreateNotificationRequest request, int teacherId)
+        public async Task SendNotificationAsync(CreateNotificationRequest request, int teacherId)
         {
             try
             {
-                if (request.RecipientRole.ToLower() != "student")
-                {
-                    throw new InvalidOperationException("RecipientRole must be 'Student'");
-                }
-
-                if (request.RecipientId.HasValue)
-                {
-                    var recipient = await _userRepository.GetByIdAsync(request.RecipientId.Value);
-                    if (recipient is null)
-                    {
-                        throw new InvalidOperationException("Recipient not found");
-                    }
-
-                    if (recipient.Role.ToLower() != "student")
-                    {
-                        throw new InvalidOperationException("RecipientId must be a Student User Id");
-                    }
-                }
-
                 var teacher = await _userRepository.GetByIdAsync(teacherId);
                 if (teacher is null)
                 {
                     throw new InvalidOperationException("Teacher not found");
                 }
 
-                Notification notification = new()
+                List<int> studentIds = new();
+
+                // Case 1: If ClassId is provided
+                // Fetch all students for this Class
+                if (request.ClassId.HasValue)
+                {
+                    var classEntity = await _classRepository.GetByIdAsync(request.ClassId.Value);
+                    if (classEntity is null)
+                    {
+                        throw new InvalidOperationException("Class not found");
+                    }
+
+                    var enrollments = await _enrollmentRepository.GetByClassIdAsync(request.ClassId.Value);
+                    studentIds = enrollments.Select(e => e.StudentId).ToList();
+
+                    if (studentIds.Count == 0)
+                    {
+                        throw new InvalidOperationException("No students enrolled in this class");
+                    }
+                }
+                // Case 2: If StudentIds list is provided
+                // Send to specified students
+                else if (request.StudentIds != null && request.StudentIds.Count > 0)
+                {
+                    studentIds = request.StudentIds;
+                }
+                // Case 3: If Only RecipientId is provided
+                // Single Recipient
+                else if (request.RecipientId.HasValue)
+                {
+                    studentIds.Add(request.RecipientId.Value);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Invalid notification request. Provide either ClassId, StudentIds, or RecipientId");
+                }
+
+                foreach (var studentId in studentIds)
+                {
+                    var student = await _userRepository.GetByIdAsync(studentId);
+                    if (student is null)
+                    {
+                        throw new InvalidOperationException($"Student with ID {studentId} not found");
+                    }
+
+                    if (student.Role.ToLower() != "student")
+                    {
+                        throw new InvalidOperationException($"User with ID {studentId} is not a student");
+                    }
+                }
+
+                List<Notification> notifications = studentIds.Select(studentId => new Notification
                 {
                     Title = request.Title,
                     Message = request.Message,
-                    RecipientRole = request.RecipientRole,
-                    RecipientId = request.RecipientId,
+                    RecipientRole = "Student",
+                    RecipientId = studentId,
                     CreatedByTeacherId = teacherId,
                     IsRead = false,
                     CreatedDate = DateTime.UtcNow
-                };
+                }).ToList();
 
-                var createdNotification = await _notificationRepository.AddAsync(notification);
-
-                NotificationDto notificationDto = new()
-                {
-                    Id = createdNotification.Id,
-                    Title = createdNotification.Title,
-                    Message = createdNotification.Message,
-                    RecipientRole = createdNotification.RecipientRole,
-                    RecipientId = createdNotification.RecipientId,
-                    RecipientName = createdNotification.Recipient?.Name,
-                    IsRead = createdNotification.IsRead,
-                    CreatedByTeacherId = createdNotification.CreatedByTeacherId,
-                    CreatedByTeacherName = createdNotification.CreatedByTeacher?.Name,
-                    CreatedDate = createdNotification.CreatedDate
-                };
-
-                return notificationDto;
+                await _notificationRepository.AddRangeAsync(notifications);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An exception occurred while creating a notification. {ex.Message}", ex);
+                _logger.LogError($"An exception occurred while sending notifications. {ex.Message}", ex);
                 throw;
             }
         }
@@ -178,22 +200,13 @@ namespace School.Infrastructure.Services
                     throw new InvalidOperationException("Notification not found");
                 }
 
-                if (notification.RecipientRole.ToLower() != "student")
-                {
-                    throw new InvalidOperationException("Notification is not for students");
-                }
-
-                if (notification.RecipientId.HasValue && notification.RecipientId.Value != studentId)
+                if (notification.RecipientId != studentId)
                 {
                     throw new InvalidOperationException("You do not have permission to read this notification");
                 }
 
-                // Only mark as read if RecipientId matches the logged-in student
-                if (notification.RecipientId.HasValue && notification.RecipientId.Value == studentId)
-                {
-                    notification.IsRead = true;
-                    await _notificationRepository.UpdateAsync(notification);
-                }
+                notification.IsRead = true;
+                await _notificationRepository.UpdateAsync(notification);
 
                 NotificationDto notificationDto = new()
                 {

@@ -19,7 +19,7 @@ namespace School.Api.Features.Teacher
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateNotificationRequest request)
+        public async Task<IActionResult> SendNotification([FromBody] CreateNotificationRequest request)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int teacherId))
@@ -27,8 +27,8 @@ namespace School.Api.Features.Teacher
                 return Unauthorized("Invalid user information");
             }
 
-            var result = await _notificationService.CreateAsync(request, teacherId);
-            return Ok(result);
+            await _notificationService.SendNotificationAsync(request, teacherId);
+            return Ok(new { message = "Notification(s) sent successfully" });
         }
 
         [HttpGet]

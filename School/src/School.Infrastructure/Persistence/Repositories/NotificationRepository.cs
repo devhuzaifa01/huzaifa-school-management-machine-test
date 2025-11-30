@@ -21,6 +21,13 @@ namespace School.Infrastructure.Persistence.Repositories
             return notification;
         }
 
+        public async Task<List<Notification>> AddRangeAsync(List<Notification> notifications)
+        {
+            _dbContext.Notifications.AddRange(notifications);
+            await _dbContext.SaveChangesAsync();
+            return notifications;
+        }
+
         public async Task<List<Notification>> GetByTeacherIdAsync(int teacherId)
         {
             return await _dbContext.Notifications
@@ -36,8 +43,7 @@ namespace School.Infrastructure.Persistence.Repositories
             return await _dbContext.Notifications
                 .Include(n => n.Recipient)
                 .Include(n => n.CreatedByTeacher)
-                .Where(n => n.RecipientRole.ToLower() == "student" 
-                    && (n.RecipientId == null || n.RecipientId == studentId)
+                .Where(n => n.RecipientId == studentId
                     && (n.IsDeleted == null || n.IsDeleted == false))
                 .OrderByDescending(n => n.CreatedDate)
                 .ToListAsync();
