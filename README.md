@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides comprehensive documentation for the School Management System API. The API is organized by user roles (Admin, Teacher, Student) and includes lookup endpoints for common data access.
+This document provides comprehensive documentation for the School Management System API. The API is organized by user roles (Admin, Teacher, Student) and includes lookup endpoints for common data access. This API project is build with .NET 8 Web APIs.
 
 ## Role & Responsibilities
 
