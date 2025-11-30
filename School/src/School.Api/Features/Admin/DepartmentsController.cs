@@ -24,20 +24,6 @@ namespace School.Api.Features.Admin
             return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var result = await _departmentService.GetAllAsync();
-            return Ok(result);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var result = await _departmentService.GetByIdAsync(id);
-            return Ok(result);
-        }
-
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateDepartmentRequest request)
         {
