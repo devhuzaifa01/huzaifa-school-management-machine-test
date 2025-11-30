@@ -4,3 +4,5 @@ add-migration AddIsDeletedBitInBaseEntity
 add-migration UpdateDataTypeOfAttendanceStatusInAttendancesTable
 add-migration UpdatedSubmissionTableWithOriginalFileNameAndStoredFileNameFields
 add-migration UpdatedCoursesTableWithIsActiveField
+add-migration UpdatedNotificationsTableWithCreatedByTeacherField
+

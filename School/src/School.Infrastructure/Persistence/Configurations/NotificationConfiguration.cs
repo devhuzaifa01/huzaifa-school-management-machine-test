@@ -12,6 +12,11 @@ namespace School.Infrastructure.Persistence.Configurations
                 .WithMany()
                 .HasForeignKey(n => n.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(n => n.CreatedByTeacher)
+                .WithMany()
+                .HasForeignKey(n => n.CreatedByTeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
